@@ -6,6 +6,7 @@
 #include <cstdio>
 
 int main() {
+    /*
     auto code = SayHello();
     printf("hello world");
 
@@ -16,5 +17,14 @@ int main() {
     cout << "你输入的年龄为: " << age << std::endl;
     std::cin.get();
     std::cin.get();
+     */
+
+    // int
+    testInt();
+    using std::cout;
+    using std::endl;
+    int a = MAXINT;
+    cout << "testInt.h maxint: " << a << endl;
+    cout << "END" << endl;
     return 0;
 };
