@@ -20,11 +20,16 @@ int main() {
      */
 
     // int
+    /*
     testInt();
     using std::cout;
     using std::endl;
     int a = MAXINT;
     cout << "testInt.h maxint: " << a << endl;
     cout << "END" << endl;
+     */
+
+    // string
+    testString();
     return 0;
 };
