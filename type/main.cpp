@@ -30,9 +30,9 @@ int main() {
      */
 
     // string
-    // testString();
+     testString();
 
     // float
-    testFloat();
+//    testFloat();
     return 0;
 };
