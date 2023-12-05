@@ -3,6 +3,8 @@
 //
 
 #include "myfloat.h"
+#include <typeinfo>
+#include <cstdio>
 
 using namespace std;
 
@@ -26,6 +28,14 @@ void typeConvert() {
     cout << "static_cast style " << b << endl;
 }
 
+void autoUse()
+{
+    auto a = 1;
+    auto b = 1.1;
+    auto c = 'z';
+    auto d = 1.1f;
+}
+
 
 void testFloat() {
     cout.setf(ios_base::fixed, ios_base::floatfield);
@@ -40,4 +50,5 @@ void testFloat() {
     cout << input << "磅经过转换为: " << a1 << "英石" << a2 << "磅" << endl;
     */
     typeConvert();
+    autoUse();
 }
