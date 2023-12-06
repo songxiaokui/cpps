@@ -102,4 +102,45 @@ void testStruct() {
     cout << "tr.Number = " << tr.Number << endl;
     cout << "tr.goodIn = " << tr.goodIn << endl;
     cout << "tr.GD = " << tr.GD << endl;
+
+    // 共用体
+    // 允许在同一内存位置存储不同的数据类型
+    // 共用体中的所有成员共享同一块内存，因此共用体的大小等于其最大成员的大小
+    // 定义
+    union One4all {
+        int int_value;
+        float float_value;
+        double double_value;
+    };
+
+    One4all a{};
+    a.double_value = 12.1;
+    a.int_value = 1;
+    a.float_value = 1.11;
+    cout << a.float_value << endl;
+    cout << a.int_value << endl;
+    cout << a.double_value << endl;
+
+    // 匿名且无中间变量时 联合体字段就是结构的一部分
+    struct P4 {
+        char type;
+        int id;
+        union {
+            int int_value;
+            float float_value;
+        };
+    };
+
+    P4 p6{};
+    if (p6.type == '1')
+    {
+        p6.int_value = 1;
+    }
+    else
+    {
+        p6.float_value = 1.1;
+    }
+    // int_value 和 float_value 共用内存，且没有中间对象变量 就成为了P4的成员变量
+    // 用途: 共用体通常用来操作系统结构或硬件数据结构
+    
 };
