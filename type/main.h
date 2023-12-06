@@ -12,3 +12,4 @@
 #include "src/tint/cint.h"
 #include "src/string/mystring.h"
 #include "src/float/myfloat.h"
+#include "src/mstruct/mystruct.h"

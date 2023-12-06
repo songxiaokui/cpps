@@ -30,9 +30,12 @@ int main() {
      */
 
     // string
-     testString();
+    // testString();
 
     // float
-//    testFloat();
+    // testFloat();
+
+    // struct
+    testStruct();
     return 0;
 };
