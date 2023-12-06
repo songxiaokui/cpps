@@ -132,15 +132,84 @@ void testStruct() {
     };
 
     P4 p6{};
-    if (p6.type == '1')
-    {
+    if (p6.type == '1') {
         p6.int_value = 1;
-    }
-    else
-    {
+    } else {
         p6.float_value = 1.1;
     }
     // int_value 和 float_value 共用内存，且没有中间对象变量 就成为了P4的成员变量
     // 用途: 共用体通常用来操作系统结构或硬件数据结构
-    
+
+    // 枚举 定义字符常量
+    // 可以替代const
+    // 定义
+    enum Color {
+        red,
+        green,
+        yellow,
+        blue,
+    };
+    // 默认从0开始自增
+
+    // 使用
+    Color c1(red);
+    cout << "c1 = " << c1 << endl;
+    switch (c1) {
+        case 0:
+            cout << "红色" << endl;
+            break;
+        case 1:
+            cout << "绿色" << endl;
+            break;
+        case 2:
+            cout << "黄色" << endl;
+            break;
+        case 3:
+            cout << "蓝色" << endl;
+            break;
+        default:
+            cout << "未知" << endl;
+            break;
+    }
+    // 属性：
+    // 1.在不进行类型强转的情况下,只能将枚举类型的值赋值给枚举变量
+    // 2.枚举只定义了赋值操作 没有算术运算
+    // 3.枚举类型为整型 可以提升到int 但是int不能转换为枚举类型
+    Color e1{red};
+    int e2(e1); // 枚举升级int OK
+    // e1 = e2; // 不能将int赋值给枚举 报错
+    e2 += e1; // e1枚举自动转换为int
+    // 类型强转
+    int e3(3);
+    Color e4 = Color(e3);
+    cout << "类型强转: " << e4 << endl;
+
+    //枚举制定值
+    enum P5 {
+        A = 1,
+        B = 2,
+        C = 10,
+        D // D=11
+    };
+
+    // 匿名枚举
+    enum {
+        red1,
+        green1,
+        yellow1
+    };
+
+    // 多个相同枚举值
+    enum {
+        a1, a2 = 0,
+        b1, b2 = 1,
+        c11, c12, c13 = 2
+    };
+    cout << a1 << endl;  // 0
+    cout << a2 << endl;  // 0
+    cout << b1 << endl;  // 1
+    cout << b2 << endl;  // 1
+    cout << c11 << endl;  // 2
+    cout << c12 << endl; // 3
+    cout << c13 << endl;  // 2
 };
