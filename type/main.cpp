@@ -36,9 +36,12 @@ int main() {
     // testFloat();
 
     // struct
-    testStruct();
+    // testStruct();
 
     // branch
     // testBranch();
+
+    // pointer
+    testPointer();
     return 0;
 };

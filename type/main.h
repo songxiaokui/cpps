@@ -14,3 +14,4 @@
 #include "src/float/myfloat.h"
 #include "src/mstruct/mystruct.h"
 #include "src/branch/branch.h"
+#include "src/pointer/pointer.h"
