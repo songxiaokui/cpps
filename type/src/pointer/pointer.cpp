@@ -75,5 +75,37 @@ void testPointer(void) {
         cout << arr3[i] << endl;
     }
 
+    // 指针的危险
+    // 创建指针对象 只是给指针对象分配了内存 并没有给内存的指针地址初始化
+    // int* p5;  // 错误的使用
+    int *p5 = new(int);  // 正确
+    cout << "p5: " << p5 << endl;
+    cout << *p5 << endl;
+    int a1(16);
+    *p5 = a1;
+    cout << *p5 << endl;
 
+    // 二维数组的4种定义方式
+    int arr4[2][3];
+
+    int arr5[2][3] = {
+            {1, 2, 3},
+            {4, 5, 6},
+    };
+
+    // 根据行列和数据自动推断
+    int arr6[2][4] = {1,2,3,4,5,6};
+
+    // 必须指定列数
+    int arr7[][4] = {1,2,3,4,5,6,7,8};
+
+    // 二维数组名称的用途
+    cout << "arr7的地址: " << arr7 << endl;
+    cout << "arr7第一列的首地址: " << &arr7[0] << endl;
+    cout << "arr7第一列第一个元素的首地址: " << &arr7[0][0] << endl;
+
+    // 第一个元素的地址与数组地址相同
+    // 计算行列
+    cout << "arr7的行数: " << sizeof(arr7)/sizeof(arr7[0]) << endl;
+    cout << "arr7的列数: " << sizeof(arr7[0])/sizeof(arr7[0][0]) << endl;
 }
