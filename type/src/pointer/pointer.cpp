@@ -3,7 +3,22 @@
 //
 
 #include "pointer.h"
+#include <cstring>
 
+char *getInput();
+
+char *getInput() {
+    char temp[81] = {};
+    cout << "请输入你的名字: " << endl;
+    cin.get(temp, 81).get();
+    // 获取用户真实的输入长度
+    int realLength = strlen(temp);
+    char *save = new char[realLength + 1];
+
+    strcpy(save, temp);
+    return save;
+
+};
 
 void swap(double *dparr, int length, int a, int b);
 
@@ -200,22 +215,63 @@ void testPointer(void) {
 
     // 结构体指针
     // 使用结构体指针 访问成员变量需要用'->'代替'.'
-    struct Person  pes1 = {
+    struct Person pes1 = {
             .name = "宋晓奎",
             .age = 30,
             .sex = '1',
             .hobbyArray = {"打篮球", "跑步", "深蹲"},
     };
 
-    struct Person* pptr = &pes1;
+    struct Person *pptr = &pes1;
     cout << "姓名: " << pptr->name << endl;
     cout << "年龄: " << pptr->age << endl;
     cout << "性别: " << pptr->sex << endl;
-    for (const auto& p: pptr->hobbyArray)
-    {
-        if (p.empty() ) {
+    for (const auto &p: pptr->hobbyArray) {
+        if (p.empty()) {
             continue;
         }
         cout << "爱好为: " << p << endl;
     }
+
+    // new与delete最好不要分离使用 容易忽略掉内存的释放操作
+    // 现在举例进行new 与delete分离的情况
+    // 用户输出一个字符串 长度不一 但是我们知道最大长度为100 大部分是小长度
+    // 所以不需要每次都用100+1长度空间存用户的输入 造成空间浪费
+    /*
+    char *name;
+    name = getInput();
+    cout << "你的输入是： " << name << endl;
+    cout << "name的地址: " << (int *) name << endl;
+    delete[]name;
+
+    name = getInput();
+    cout << "你的输入是： " << name << endl;
+    cout << "name的地址: " << (int *) name << endl;
+    delete[]name;
+     */
+
+    // 组合类型
+    // 指针数组
+    struct Person one1 = {"小张", 18, '1', {"打篮球"}};
+    struct Person one2 = {"小李", 19, '1', {"打篮球"}};
+    struct Person one3 = {"小王", 20, '1', {"打篮球"}};
+    const struct Person* parr[3] = {&one1, &one2, &one3};
+
+    // 或者直接定义指针类型
+    const struct Person** pparr = parr;
+    // 容易搞错类型 使用自动推断
+    auto pparr2 = parr;
+    // 访问
+    cout << (*pparr2)->name << endl;
+    cout << (*(pparr2+1))->name << endl;
+
+    // 数组的替代
+    // vector
+    using std::vector;
+    vector<int> intArray;  // 默认长度为0
+    vector<double> doubleArray(10);  // 创建长度为10的double数组
+    doubleArray[0] = 1.1;
+    cout << doubleArray[0] << endl;
+    // vector扩容
+    cout << doubleArray.size() << endl;
 }

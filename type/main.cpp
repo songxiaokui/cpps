@@ -42,9 +42,12 @@ int main() {
     // testBranch();
 
     // pointer
-    testPointer();
+    // testPointer();
 
     // functions
     // testFunctions();
+
+    // reference
+    testReference();
     return 0;
 };
