@@ -43,5 +43,8 @@ int main() {
 
     // pointer
     testPointer();
+
+    // functions
+    // testFunctions();
     return 0;
 };
