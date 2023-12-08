@@ -196,6 +196,46 @@ void testReference(void)
     for (int i = 0; i < 3; i++){
         cout << car[i].wight << endl;
     }
+
+    // cout 默认将bool转换为int 使用cout.setf(ios_base::boolalpha)显示true和false
+    cout << (5 > 1) << endl;
+    cout.setf(ios_base::boolalpha);
+    cout << (5 > 1) << endl;
+
+    // 计算阶乘
+    // 0! = 1
+    // 1! = 1 * 0! = 1
+    // 2! = 2*1!
+    const int order(16);
+    long long orderArray[order] = {1,1}; // 初始化直接赋值0 和1阶阶乘
+    for (int i = 2; i < order; i++)
+    {
+        orderArray[i] = i * orderArray[i-1];
+    }
+
+    cout << "输出阶乘数据: "<< endl;
+    for (int i = 0; i< order; i++)
+    {
+        cout << "第 " << i << " 阶乘为: " << orderArray[i] << endl;
+    }
+
+    // ++ --
+    // a++意味着使用a的当前值计算表达式，然后将a的值加1；而++b的意思是先将b的值加1，然后使用新的值来计算表达式”。
+    int a111(1);
+    int b111(1);
+    b111 += ++a111;
+    cout << "b111=" << b111 << endl;
+    cout << "a111=" << a111 << endl;
+
+    int a112(1);
+    int b112(1);
+    b112 += a112++;
+    cout << "b112=" << b112 << endl;
+    cout << "a112=" << a112 << endl;
+
+    int x(10);
+    x = ++x * (1 - ++x) + x++; // 结果不确定
+    cout << "x=" << x << endl;
 }
 
 void getLinePractice(void)
