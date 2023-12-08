@@ -11,7 +11,9 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <array>
 
 using namespace std;
 
 void testReference(void);
+void getLinePractice(void);
