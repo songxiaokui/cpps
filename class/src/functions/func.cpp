@@ -271,5 +271,13 @@ void testFunc() {
     auto ptr12 = &ptr11;
     my_func_array2(ptr12);
 
+    // 使用typedef 简化定义
+    // typedef int (*Func) (int, int)
+    // 数组指针
+    // 等价与
+    // int (*f[3]) (int, int)
+    Func f[3] = {add, sub, multi};
+    // 指向数组的指针
+    Func (*f2)[3] = &f;
 }
 
