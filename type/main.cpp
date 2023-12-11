@@ -49,5 +49,10 @@ int main() {
 
     // reference
     testReference();
+
+    bool isTrue;
+    if (not isTrue) {
+        cout << "this is ok" << endl;
+    }
     return 0;
 };

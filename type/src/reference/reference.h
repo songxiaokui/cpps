@@ -14,6 +14,9 @@
 #include <array>
 
 using namespace std;
+// 函数重载
+int add(const int& a, int = 10);
+int add(double a, double b);
 
 void testReference(void);
 void getLinePractice(void);

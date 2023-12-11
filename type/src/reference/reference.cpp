@@ -236,6 +236,21 @@ void testReference(void)
     int x(10);
     x = ++x * (1 - ++x) + x++; // 结果不确定
     cout << "x=" << x << endl;
+
+    // 常量引用
+    int r1(10);
+    int& ref1 = r1;
+    cout << "不是常量引用: " << ref1 << endl;
+
+    const int& ref2 = 10; // 本质是编译器进行优化 首先声明了临时变量int temp = 10; int& ref2 = temp;
+    // 引用的本质(其实就是起别名)
+
+    // 引用在函数中的传递
+    int t1 = 10;
+    int t2 = 20;
+    cout << add(t1) << endl;
+
+    cout << add(3.14, 2.561) << endl;
 }
 
 void getLinePractice(void)
@@ -249,4 +264,20 @@ void getLinePractice(void)
     cout << "What is your  name?";
     cin.get(lastName, 80).get();
     cout << lastName << endl;
+}
+
+// 函数重载
+// 条件需要满足三个
+// 1. 重载函数的作用域相同
+// 2. 函数的参数类型、或参数的个数、或参数的顺序不同
+// 3. 函数的返回值不能作为重载的判据
+
+int add(const int& a, int)
+{
+    return a;
+}
+
+int add(double a, double b)
+{
+    return a+b;
 }
