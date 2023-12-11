@@ -1,0 +1,16 @@
+//
+// Created by 宋晓奎 on 2023/12/11.
+//
+
+#ifndef TYPE_MAIN_H
+#define TYPE_MAIN_H
+
+#endif //TYPE_MAIN_H
+
+#include <iostream>
+#include <string>
+#include <cstring>
+
+using namespace std;
+
+#include "src/base/circle.h"
