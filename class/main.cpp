@@ -4,11 +4,13 @@
 
 #include "main.h"
 
-int main()
-{
+int main() {
     cout << "this is class module..." << endl;
 
     // bass
-    testCircle();
+    //  testCircle();
+
+    // cube
+    testCube();
     return 0;
 }
