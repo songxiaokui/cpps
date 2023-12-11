@@ -16,3 +16,4 @@ using namespace std;
 #include "src/base/circle.h"
 #include "src/base/cube.h"
 #include "src/limits/limits.h"
+#include "src/functions/func.h"
