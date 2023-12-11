@@ -97,6 +97,23 @@ void showString(const string* ptr, int n)
     }
 }
 
+void showArray(const array<string, 3>* ptr)
+{
+    for (auto begin = ptr->begin(); begin < ptr->end(); begin++)
+    {
+        cout << *begin << endl;
+    }
+}
+
+int Fibonacci(int n)
+{
+    if (n == 1 || n == 2)
+    {
+        return 1;
+    }
+    return Fibonacci(n-1) + Fibonacci(n-2);
+}
+
 void testFunc() {
 
     // 设置种子
@@ -163,5 +180,12 @@ void testFunc() {
     // string 赋值给函数
     string ptr[] = {"宋晓奎", "大师兄", "猪八戒"};
     showString(ptr, 3);
+
+    // 函数与array对象
+    array<string, 3> a1 = {"宋晓奎", "大师兄", "猪八戒"} ;
+    showArray(&a1);
+
+    // 递归
+    cout << "斐波那契数据: " << Fibonacci(20) << endl;
 }
 
