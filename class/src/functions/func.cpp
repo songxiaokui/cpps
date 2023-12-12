@@ -5,6 +5,22 @@
 #include "func.h"
 #include <random>
 
+// C语言的宏定义的实质就是文本的字符串替换
+// 将SQU(X) 替换为 (X * X)
+#define SQU(X) ((X) * (X))
+
+inline int compare(int a, int b);
+
+inline int compare(int a, int b) {
+    return a > b ? a : b;
+}
+
+int compare2(int a, int b);
+
+int compare2(int a, int b) {
+    return a > b ? a : b;
+}
+
 void funcHandler(int (*arr)[4], int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < 4; j++) {
@@ -158,23 +174,23 @@ int my_func(int (*f)(int lines)) {
     return f(100);
 }
 
-int my_func_array( int (*f[3])(int))
-{
-    for (int i = 0; i< 3; i++)
-    {
+int my_func_array(int (*f[3])(int)) {
+    for (int i = 0; i < 3; i++) {
         cout << f[i](100) << endl;
     }
     return 0;
 }
 
-int my_func_array2(int (*(*f)[3])(int))
-{
-    for (int i = 0; i<3;i++)
-    {
-        cout << (*f[i])(100) << endl;
+int my_func_array2(int (*(*f)[3])(int)) {
+    cout << "111" << endl;
+    for (int i = 0; i < 3; i++) {
+        // 此处注意
+        // 由于f是指向数组的指针 所以先解引用获取数组第一个元素的地址
+        cout << ((*f)[i])(100) << endl;
     }
     return 0;
 }
+
 void testFunc() {
 
     // 设置种子
@@ -279,5 +295,28 @@ void testFunc() {
     Func f[3] = {add, sub, multi};
     // 指向数组的指针
     Func (*f2)[3] = &f;
+
+    // 宏定义使用
+    int h1 = 101;
+    cout << "h1=" << h1 << endl;
+    cout << "宏调用的结果: " << SQU(h1) << endl;
+
+    // 函数内联
+    // 所谓函数内联 其实就是编译器进行优化 减少了函数的调用的开销 增加了内存的开销 从而缩短调用时间
+    // 使用inline 限定词
+    // 函数原型与函数定义都要定义
+    int c1(7);
+    int max;
+    // 获取当前时间
+    auto start_time = std::chrono::high_resolution_clock::now();
+    for (int i = 0; i < 100000; i++) {
+        max = compare(i, c1); // 内联消耗时间: 461.542
+        // max = compare2(i, c1);  // 不内联: 452.458
+    }
+    // 获取结束时间
+    auto end_time = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::micro> duration = end_time - start_time;
+    cout << "max = " << max << endl;
+    cout << "内联消耗时间: " << duration.count() << endl;
 }
 
