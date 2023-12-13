@@ -20,6 +20,10 @@ inline void swap_reference(int& a, int& b)
     b = temp;
 }
 
+double cube(const double& a)
+{
+    return a * a * a;
+}
 void testReference(void)
 {
     cout << "this capture is reference..." << endl;
@@ -70,5 +74,54 @@ void testReference(void)
     // 使用引用实现两个数据交换
     swap_reference(a, b);
     cout << "第二次交换后: a = " << a << " b = " << b << endl;
+
+    // 4. 引用传递
+    // 其传递的要求更加严格
+    // 值传递: 可以传表达式 函数调用 字面量 变量 等
+    // 引用传递: 只能传变量 引用就是给变量起别名 所以函数的形参传递的实参只能是变量
+    // 如果不想通过引用修改实参 可以加限定词 const 修饰
+
+    // 早期版本
+    // 可以兼容 int& ra => a + 10;
+    // 实质: 编译器创建了一个临时变量存 a + 10 然后将ra指向临时变量的引用
+
+    // 临时变量、引用参数、const
+    // 临时变量创建时间: 实参与引用参数不匹配 C++将生成临时变量 当前阶段只有加了const限定词才会
+    // 创建临时变量的条件:
+    //      1. 实参的类型正确 但不是左值(左值: 可以被引用的数据对象，变量、数组、结构、指针等，除了字面量常量及多项表达式)
+    //      2. 实参的类型不正确，但可以转换为正确的类型
+    double side = {10};
+    double* sidep = &side;
+    double& sider = side;
+    long size1 = {5L};
+    double* arr = new double [5] {1.0, 2.0, 3.0, 4.0, 5.0};
+
+    double c1 = cube(side); // 引用a->side 不会创建临时空间
+    double c2 = cube(*sidep); // 引用a->sidep的解引用 不会创建临时空间
+    double c3 = cube(sider); // 应用a->sider->side
+    double c4 = cube(arr[1]); //数组的元素行为与同类型变量一致
+    double c5 = cube(static_cast<double>(size1)); // 类型不一致 强制转换
+    double c6 = cube(1.0); // 字面量常量 创建临时变量
+    double c7 = cube(side + 2.0); // 表达式 创建临时变量
+    // 引用尽可能的使用const
+    // 理由：
+    // 1. const 避免数据被无意间修改
+    // 2. 使用const能处理const 和非const的实参
+    // 3. const引用能够使函数正确的生成临时变量
+
+    // 右值引用
+    // C++11引入的引用类型
+    // 支持移动语义和完美转发 通过&&声明
+    // 支持我们引用临时对象(右值)
+    // 移动语义: 将一个对象移动到另外一个对象 而不是使用传统的复制
+    // 完美转发: 允许在不转变类型的方式将参数传递给其他函数
+
+    double&& rref = std::sqrt(36.0); // double& 将报错
+    cout << "rref: " << rref << endl;
+
+    double j {101.1};
+    double&& rr2 = j * 3.14 + 2;
+    cout << "rr2: " << rr2 << endl;
+
 
 }
