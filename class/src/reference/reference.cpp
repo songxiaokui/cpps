@@ -24,6 +24,37 @@ double cube(const double& a)
 {
     return a * a * a;
 }
+
+struct FreeThrows
+{
+    std::string name;
+    std::string brand;
+    double price;
+    int attempts;
+};
+
+void showFreeThrows(const FreeThrows& f)
+{
+    // f.name = "sss"; // const 限定词修饰 不支持修改
+    cout << "name: " << f.name << " brand: "
+        << f.brand << " price: " << f.price
+        << " attempts: " << f.attempts << endl;
+}
+
+void updateFreeThrows(FreeThrows& f, double price)
+{
+    f.price = price;
+}
+
+struct FreeThrows& accumulate(FreeThrows& target, const FreeThrows& source)
+{
+    cout << "in functions target address: " << &target << endl;
+    target.price += source.price;
+    target.attempts += target.attempts;
+    showFreeThrows(target);
+    return target;
+}
+
 void testReference(void)
 {
     cout << "this capture is reference..." << endl;
@@ -123,5 +154,20 @@ void testReference(void)
     double&& rr2 = j * 3.14 + 2;
     cout << "rr2: " << rr2 << endl;
 
+    // 5. 引用与结构
+    struct FreeThrows f = {"冰箱", "格力", 3599.99, 2019};
+    showFreeThrows(f);
+    updateFreeThrows(f, 1000);
+    // 返回引用
+    struct FreeThrows f2 = {"洗衣机", "美的", 1299.01, 2088};
+    struct FreeThrows& f3 = accumulate(f2, f);
+    cout << "f2 address: " << &f2 << endl;
+    cout << "f3 address: " << &f3 << endl;
+    showFreeThrows(f3);
 
+    accumulate(f2, f) = f;
+    showFreeThrows(f2); // 引用没变 只是 引用地址的值对象已经更新为f对象的值罢了
+
+    // 为什么要返回引用
+    // 传统的返回:
 }
