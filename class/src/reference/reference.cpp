@@ -55,6 +55,14 @@ struct FreeThrows& accumulate(FreeThrows& target, const FreeThrows& source)
     return target;
 }
 
+struct FreeThrows& clone(FreeThrows& f)
+{
+    auto ptr = new FreeThrows {};
+    *ptr = f;
+    return *ptr;
+
+}
+
 void testReference(void)
 {
     cout << "this capture is reference..." << endl;
@@ -170,4 +178,21 @@ void testReference(void)
 
     // 为什么要返回引用
     // 传统的返回:
+    //      将结果复制到寄存器或者开辟新的内存空间将结果复制于此 由编译器告知函数调用者计算结果存储的位置 然后函数调用者将结果复制到接受变量
+    //      从概念上来说: 就是值复制到一个临时位置
+    // 返回引用：
+    //      其实质应该是创建了一个常量指针 给team起别名 应该不是进行对象的复制
+    //      typeName* const 变量名 =  &返回对象名；
+
+    // 返回引用需要注意的问题?
+    // 1. 不要返回函数内部局部变量的内存单元引用(不要返回栈空间数据)
+    //      解决方案: 1. 将返回的结果通过引用参数进行传递到函数内部
+    //               2. 通过使用new 关键词声明结果对象 将数据分配在堆空间 这样函数调用内存释放不会产生非法内存地址访问
+    struct FreeThrows ftr = {"sxk", "国产", 10e9, 100};
+    const FreeThrows& newFtr = clone(ftr);
+    cout << "ftr address: " << &ftr << endl;
+    cout << "after clone address: " << &newFtr << endl;
+    // clone 出来的对象记得释放
+    // clone 实际得到是新对象的引用 
+    delete &newFtr;
 }
