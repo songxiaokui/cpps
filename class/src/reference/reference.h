@@ -19,3 +19,7 @@
 using namespace std;
 
 void testReference(void);
+
+void add1(int a, int b);
+void add1(double a, double b);
+void add1(char* a, int a1, char* b, int a2);

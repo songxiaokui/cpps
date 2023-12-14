@@ -79,6 +79,34 @@ void file_out(ostream& os, int count, const char*& s)
     }
 }
 
+char* left(char *str, int n) {
+    int len = (int) strlen(str);
+    n = n > len ? len : n;
+    char *newStr = new char[n + 1];
+    strncpy(newStr, str, n);
+    return newStr;
+}
+
+void add1(int a, int b) {
+    cout << "int a + int b = " << a + b << endl;
+}
+
+void add1(double a, double b) {
+    cout << "double a + double b = " << a + b << endl;
+}
+
+void add1(char *a, int a1, char *b, int a2) {
+    char* result = (char*)std::malloc(sizeof(char) * (a1 + a2 + 1));
+    // char *result = new char[a1 + a2 + 1];
+    strcpy(result, a);
+    result = &result[a1];
+    strcpy(result, b);
+    result = &result[-a1];
+    cout << "str add: " << result << endl;
+    // delete [] result;
+    free(result);
+}
+
 void testReference(void)
 {
     cout << "this capture is reference..." << endl;
@@ -282,4 +310,14 @@ void testReference(void)
     //      3. 读写并存 数据对象是结构 可以使用指针和引用
     //      4. 读写并存 数据对象是类对象 使用引用
 
+    // 函数默认值
+    char str1[] = "hello world";
+    cout << left(str1, 3) << endl;
+
+    // 函数重载
+    add1(1, 2);
+    add1(1.0, 2.0);
+    char s1[] = "sxk";
+    char s2[] = "hello world";
+    add1(s1, 3, s2, 11);
 }
