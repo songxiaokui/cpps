@@ -71,6 +71,14 @@ const struct FreeThrows& clone2(FreeThrows& f)
 
 }
 
+void file_out(ostream& os, int count, const char*& s)
+{
+    for (int i = 0; i< count; i++)
+    {
+        os << s << endl;
+    }
+}
+
 void testReference(void)
 {
     cout << "this capture is reference..." << endl;
@@ -217,4 +225,41 @@ void testReference(void)
     // 加const
     // clone2(ftr) = f; // 报错
     // 返回类型为const限定 时不可修改的左值 所以不合法
+
+    // 将引用用于类对象
+    // const引用形参最典型的属性:
+    //      若实参类型不匹配形参，但是实参类型可以转换为形参类型，则程序会创建一个正确的临时变量
+    //    将转换后的实参值初始化改变量 然后传递指向该临时变量的引用
+
+    // 对象、继承、引用
+    // 继承: 能够将特性从一个类传递给另一个类的语言特性 叫继承
+
+    // ofstream 创建文件与写入的标准库
+    const char* fileName = "./show.txt";
+    std::ofstream outputFile(fileName);
+    if (outputFile.is_open())
+    {
+        outputFile << "Hello world" << endl;
+        outputFile << "C++ is interesting" << endl;
+        // outputFile.close();
+    }
+    else
+    {
+        cout << "File " << fileName  << " is not opened!" << endl;
+    }
+
+    // use cout
+    const char* s = "sxk";
+    file_out(cout, 10, s);
+    // use file
+    file_out(outputFile, 10, s);
+    // close file
+    outputFile.close();
+    cout << "文件具柄已关闭" << endl;
+
+    ios_base::fmtflags initFlag;
+    initFlag = cout.setf(ios_base::fixed);
+    cout.setf(initFlag);
+    cout.precision(4);
+    cout << 2.4 << endl;
 }

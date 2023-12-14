@@ -13,6 +13,8 @@
 #include <vector>
 #include <array>
 #include <cmath>
+#include <fstream>
+#include <cstdlib>
 
 using namespace std;
 
