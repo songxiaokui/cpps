@@ -63,6 +63,14 @@ struct FreeThrows& clone(FreeThrows& f)
 
 }
 
+const struct FreeThrows& clone2(FreeThrows& f)
+{
+    auto ptr = new FreeThrows {};
+    *ptr = f;
+    return *ptr;
+
+}
+
 void testReference(void)
 {
     cout << "this capture is reference..." << endl;
@@ -193,6 +201,20 @@ void testReference(void)
     cout << "ftr address: " << &ftr << endl;
     cout << "after clone address: " << &newFtr << endl;
     // clone 出来的对象记得释放
-    // clone 实际得到是新对象的引用 
+    // clone 实际得到是新对象的引用
     delete &newFtr;
+
+    // 右值: 不能通过地址访问的值 如字面量值(不包括字符串)、表达式
+    // 左值: 能够通过地址访问的值
+    // 常规函数返回的都是右值，这种返回值存在于临时内存单元中 执行下一条指令时 就不存在了
+    // 使用const限定词修饰引用返回值
+    // 可以防止引用值被修改
+    // 形式
+    // const typeName& functionName(params...);
+
+    // 不加const
+    clone(ftr) = f;  // 可以修改
+    // 加const
+    // clone2(ftr) = f; // 报错
+    // 返回类型为const限定 时不可修改的左值 所以不合法
 }
