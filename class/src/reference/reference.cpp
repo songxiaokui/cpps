@@ -107,6 +107,19 @@ void add1(char *a, int a1, char *b, int a2) {
     free(result);
 }
 
+void sink(double& r1)
+{
+    cout << "double& result: " << r1 << endl;
+}
+void sank(const double& r2)
+{
+    cout << "const double& result: " << r2 << endl;
+}
+void sunk(double&& r3)
+{
+    cout << "右值引用, double&& result: " << r3 << endl;
+}
+
 void testReference(void)
 {
     cout << "this capture is reference..." << endl;
@@ -320,4 +333,14 @@ void testReference(void)
     char s1[] = "sxk";
     char s2[] = "hello world";
     add1(s1, 3, s2, 11);
+
+    double sd1 = {1.11};
+    sink(sd1);
+    const double sd2 = {1.12};
+    sank(sd2);
+    sunk(1.1+1.2);
+    // 上述三种类型的函数重载，调用将用最匹配的版本
+    // 第一个: 正常的左值引用与可修改左值引用
+    // 第二个: const左值引用与右值参数
+    // 第三个: 右值参数
 }
