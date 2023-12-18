@@ -195,6 +195,26 @@ void Swap1(int &a, int &b) {
     b = temp;
 }
 
+template <class T>
+void ShowArray(T arr[], int length)
+{
+    cout << "函数特征: T arr[], int length" << endl;
+    for (int a = 0; a < length; a++)
+    {
+        cout << "a = " << arr[a] << endl;
+    }
+}
+
+template <class T>
+void  ShowArray(T* arr[], int length)
+{
+    cout << "函数特征: T* arr[], int length" << endl;
+    for (int a = 0; a < length; a++)
+    {
+        cout << "a = " << *arr[a] << endl;
+    }
+}
+
 void testReference(void) {
     cout << "this capture is reference..." << endl;
     cout << "引用: 就是已定义变量的别名" << endl;
@@ -536,5 +556,43 @@ void testReference(void) {
     Swap1(jk1, jk2);
     cout << "jk1= " << jk1 << " jk2= " << jk2 << endl;
 
+    // 模版函数的实例化与具体化
+    // 函数模版本身不会生成函数定义，函数模版只是一个用于生成函数定义的方案
+    // 模版实例: 编译器使用模版为特定类型生成函数定义得到的就是模版实例
 
+    // 编译器如何选择使用函数？
+    // 函数重载 函数模版 函数模版重载等等
+    // 编译器根据参数来决定函数调用行为的过程称为重载解析 overloading resolution
+    // 重载解析的过程:
+    // 1. 创建候选函数列表，包含与被调函数名称相同的函数与模版函数
+    // 2. 使用候选函数列表创建可行函数列表 (隐使转换序列)
+    // 3. 确定是否有最近的可行函数 如果有就使用 没有就抛出异常
+
+    // 注意:
+    // const 形参只区分与指针和引用数据 不区分(int) (const int) 签名如此就会产生二义性
+    // 非模版函数优于模版函数（包括显示具体化）
+    // 如果匹配的函数都是模版函数 则比较具体模版函数的优先级别 (显示具体化>模版函数)
+
+    // most specialized 最具体
+    // 不一定意味着显示具体化 而是指编译器推断使用哪种类型时执行的转换最少
+
+    // 用于找出最具体的模版的规则被称为函数模版的部分排序规则
+    int arrayInt1[] = {1, 3 , 5, 7, 9};
+    int* arrayPointerInt1[3];
+    int ia = 1;
+    int ib = 2;
+    int ic = 3;
+    arrayPointerInt1[0] = &ia;
+    arrayPointerInt1[1] = &ib;
+    arrayPointerInt1[2] = &ic;
+    // 类型T 解析为int
+    ShowArray(arrayInt1, 5);
+    // 将类型T解析为int 更具体 假设数组的内容是指针 因此被使用
+    ShowArray(arrayPointerInt1, 3);
+
+    // 总之，重载解析将寻找最匹配的函数
+    // 如果只存在一个匹配的函数 则使用它
+    // 如果存在多个这样的函数 但是其中一个不是模版函数 则选择非模版函数
+    // 如果都是模版函数 但是其中一个函数比其他函数更具体 则选择跟具体的函数
+    // 如果存在多个同样合适的普通函数或模版函数 但咩有更具体 则产生多义性 则报错
 }

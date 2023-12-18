@@ -63,3 +63,10 @@ template <> void Swap1<Job1> (Job1 &a, Job1 &b);
 
 // 无模版 普通函数
 void Swap1(int& a, int& b);
+
+// 函数调用使用更具体
+template <class T>
+void ShowArray(T arr[], int length);
+
+template <class T>
+void  ShowArray(T* arr[], int length);
