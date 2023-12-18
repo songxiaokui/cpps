@@ -163,15 +163,36 @@ void DoubleSort(T *slice, int length) {
     PrintSlice(slice, length);
 }
 
-template <typename T>
-void Swap(T a[], T b[], int length)
-{
-    for (int i = 0; i < length; i++)
-    {
-        T temp = a[i] ;
+template<typename T>
+void Swap(T a[], T b[], int length) {
+    for (int i = 0; i < length; i++) {
+        T temp = a[i];
         a[i] = b[i];
         b[i] = temp;
     }
+}
+
+template<typename T>
+void Swap1(T &a, T &b) {
+    cout << "这是普通模版函数Swap1" << endl;
+    T temp = a;
+    a = b;
+    b = temp;
+}
+
+template<>
+void Swap1<Job1>(Job1 &a, Job1 &b) {
+    cout << "这是显示具体化函数Swap1" << endl;
+    double temp = a.price;
+    a.price = b.price;
+    b.price = a.price;
+}
+
+void Swap1(int &a, int &b) {
+    cout << "这是普通函数Swap1" << endl;
+    int temp = a;
+    a = b;
+    b = temp;
 }
 
 void testReference(void) {
@@ -396,7 +417,8 @@ void testReference(void) {
     // 第三个: 右值参数
 
     // 重载示例
-    cout << "字符串: " << left("sxk hello", 3) << endl;
+    char stn[] = "sxk hello";
+    cout << "字符串: " << left(stn, 3) << endl;
     cout << "数字: " << left(109191, 3) << endl;
     cout << "数字: " << left(333, 5) << endl;
 
@@ -463,8 +485,8 @@ void testReference(void) {
     // 重载模版: 函数签名、函数特征必须不同
     // 与重载函数类型
     // 示例
-    int* al1  = new int [] {1, 2, 3, 4, 5, 6, 0};
-    int* bl1 = new int [] {7, 8, 9, 10, 11, 12, 13};
+    int *al1 = new int[]{1, 2, 3, 4, 5, 6, 0};
+    int *bl1 = new int[]{7, 8, 9, 10, 11, 12, 13};
     Swap(al1, bl1, 7);
     PrintSlice(al1, 7);
     PrintSlice(bl1, 7);
@@ -475,6 +497,44 @@ void testReference(void) {
     Println(n1);
     Println(n2);
 
-    delete [] al1;
-    delete [] bl1;
+    delete[] al1;
+    delete[] bl1;
+
+    // 函数模版的局限性
+    // 同一个模版 无法满足所有类型的所有操作
+    // 解决方案:
+    //      1. 显示具体化
+    // 第三带具体化方案有三种
+    // 1. 对于给定的函数名可以使用非模版函数 模版函数 显示具体化模版函数三种
+    // 2. 显示具体化的原型和定义使用template <> 打头 并通过名称来指定类型
+    // 3. 具体化函数优于常规模版函数 非模版函数优于具体化函数原型
+    // 说明:
+    // 1. 非模版函数
+    // void Swap(typeName a, typeName b);
+    // 2. 模版函数
+    // template <typename T>
+    // void Swap(T a, T b);
+    // 具体化函数
+    // template<> void Swap<job>(job& a, job& b);
+    // 编译器选择原型的顺序: 非模版函数 > 具体化函数 > 模版函数
+
+    // 普通函数(优先)
+    int k1 = 10;
+    int k2 = 20;
+    Swap1(k1, k2);
+    cout << "k1= " << k1 << " k2= " << k2 << endl;
+
+    // 显示具体化，具体化函数优先
+    struct Job1 job1 = {"Job1", 12, 99.0};
+    struct Job1 job2 = {"Job2", 14, 19.0};
+    Swap1(job1, job2);
+    cout << "Job1.price: " << job1.price << " Job2.price: " << job2.price << endl;
+
+    // 模版函数
+    double jk1 = 1.1;
+    double jk2 = 9.9;
+    Swap1(jk1, jk2);
+    cout << "jk1= " << jk1 << " jk2= " << jk2 << endl;
+
+
 }
