@@ -70,3 +70,10 @@ void ShowArray(T arr[], int length);
 
 template <class T>
 void  ShowArray(T* arr[], int length);
+
+// 定义的模版
+template <typename T>
+T my_add(T a, T b);
+
+// 自定义类型
+int my_add(int a, int b);

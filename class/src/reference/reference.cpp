@@ -195,24 +195,33 @@ void Swap1(int &a, int &b) {
     b = temp;
 }
 
-template <class T>
-void ShowArray(T arr[], int length)
-{
+template<class T>
+void ShowArray(T arr[], int length) {
     cout << "函数特征: T arr[], int length" << endl;
-    for (int a = 0; a < length; a++)
-    {
+    for (int a = 0; a < length; a++) {
         cout << "a = " << arr[a] << endl;
     }
 }
 
-template <class T>
-void  ShowArray(T* arr[], int length)
-{
+template<class T>
+void ShowArray(T *arr[], int length) {
     cout << "函数特征: T* arr[], int length" << endl;
-    for (int a = 0; a < length; a++)
-    {
+    for (int a = 0; a < length; a++) {
         cout << "a = " << *arr[a] << endl;
     }
+}
+
+// 定义的模版
+template<typename T>
+T my_add(T a, T b) {
+    cout << "这是my_add的模版函数" << endl;
+    return a + b;
+}
+
+// 自定义类型
+int my_add(int a, int b) {
+    cout << "这是自定义的类型实现" << endl;
+    return a + b;
 }
 
 void testReference(void) {
@@ -577,8 +586,8 @@ void testReference(void) {
     // 不一定意味着显示具体化 而是指编译器推断使用哪种类型时执行的转换最少
 
     // 用于找出最具体的模版的规则被称为函数模版的部分排序规则
-    int arrayInt1[] = {1, 3 , 5, 7, 9};
-    int* arrayPointerInt1[3];
+    int arrayInt1[] = {1, 3, 5, 7, 9};
+    int *arrayPointerInt1[3];
     int ia = 1;
     int ib = 2;
     int ic = 3;
@@ -595,4 +604,17 @@ void testReference(void) {
     // 如果存在多个这样的函数 但是其中一个不是模版函数 则选择非模版函数
     // 如果都是模版函数 但是其中一个函数比其他函数更具体 则选择跟具体的函数
     // 如果存在多个同样合适的普通函数或模版函数 但咩有更具体 则产生多义性 则报错
+
+    // 自己选择函数使用
+    // 1. 定义一个模版函数
+    // 2. 定义一个自定义实现
+    // 3. 手动指定选择需要执行的函数
+    int l1 = 10;
+    int l2 = 20;
+    double l3 = 1.1;
+    double l4 = 1.3;
+    my_add(l1, l2);  // int
+    my_add<int>(l1, l2); // T
+    my_add<int>(l3, l4);  // T
+    my_add(l3, l4); // T
 }
