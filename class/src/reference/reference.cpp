@@ -121,22 +121,57 @@ void sank(const double &r2) {
 }
 
 // 泛型编程
-template <typename SxkType>
-void Swap(SxkType& a, SxkType& b)
-{
+template<typename SxkType>
+void Swap(SxkType &a, SxkType &b) {
     SxkType temp = a;
     a = b;
     b = temp;
 }
 
-template <class MyType>
-void Println(MyType a)
-{
+template<class MyType>
+void Println(MyType a) {
     cout << a << endl;
 }
 
 void sunk(double &&r3) {
     cout << "右值引用, double&& result: " << r3 << endl;
+}
+
+template<class T>
+void PrintSlice(T *slice, int length) {
+    for (int i = 0; i < length; i++) {
+        cout << " " << slice[i];
+    }
+    cout << endl;
+}
+
+template<class T>
+void DoubleSort(T *slice, int length) {
+    cout << "排序前输出: " << endl;
+    PrintSlice(slice, length);
+    for (int i = 0; i < length - 1; i++) {
+        for (int j = 0; j < length - i - 1; j++) {
+            if (slice[j] > slice[j + 1]) {
+                T temp = slice[j];
+                slice[j] = slice[j + 1];
+                slice[j + 1] = temp;
+
+            }
+        }
+    }
+    cout << "排序后输出: " << endl;
+    PrintSlice(slice, length);
+}
+
+template <typename T>
+void Swap(T a[], T b[], int length)
+{
+    for (int i = 0; i < length; i++)
+    {
+        T temp = a[i] ;
+        a[i] = b[i];
+        b[i] = temp;
+    }
 }
 
 void testReference(void) {
@@ -382,23 +417,23 @@ void testReference(void) {
     // 交换两个整型
     int sw1{10};
     int sw2{99};
-    cout << "int swap before: " << "sw1: " << sw1 << " sw2: "<< sw2 << endl;
+    cout << "int swap before: " << "sw1: " << sw1 << " sw2: " << sw2 << endl;
     Swap(sw1, sw2);
-    cout << "int swap after: " << "sw1: " << sw1 << " sw2: "<< sw2 << endl;
+    cout << "int swap after: " << "sw1: " << sw1 << " sw2: " << sw2 << endl;
 
     // 交换两个double
     double sdoub1{1.1};
     double sdoub2{9.9};
-    cout << "double swap before: " << "sdoub1: " << sdoub1 << " sdoub2: "<< sdoub2 << endl;
+    cout << "double swap before: " << "sdoub1: " << sdoub1 << " sdoub2: " << sdoub2 << endl;
     Swap(sdoub1, sdoub2);
-    cout << "double swap after: " << "sdoub1: " << sdoub1 << " sdoub2: "<< sdoub2 << endl;
+    cout << "double swap after: " << "sdoub1: " << sdoub1 << " sdoub2: " << sdoub2 << endl;
 
     // 交换两个char类型
     char ch1 = 'a';
     char ch2 = 'f';
-    cout << "char swap before: " << "ch1: " << ch1 << " ch2: "<< ch2 << endl;
+    cout << "char swap before: " << "ch1: " << ch1 << " ch2: " << ch2 << endl;
     Swap(ch1, ch2);
-    cout << "char swap after: " << "ch1: " << ch1 << " ch2: "<< ch2 << endl;
+    cout << "char swap after: " << "ch1: " << ch1 << " ch2: " << ch2 << endl;
 
     // 总结:
     // 1. 建立模版 并给类型命名(关键词 template和typename是必须的 可以使用class代替typename)
@@ -409,4 +444,37 @@ void testReference(void) {
     Println("hello world");
     Println(9.88);
     Println('a');
+
+    // 重载模版
+    // 需要多个对不同类型使用同一种算法的函数可以使用模版
+    // 如下面的排序算法
+    // 对int double char类型排序
+    int *sliceInt = new int[]{1, 3, 2, 6, 4, 9, 7, 10, 8};
+    char *sliceChar = new char[]{'a', 'f', 'e', 'b', 's', 'z', 'm'};
+    double *sliceDouble = new double[]{1.0, 0.9, 3.3, 2.0, 9.8, 200.0, 4.2};
+    DoubleSort(sliceInt, 9);
+    DoubleSort(sliceChar, 7);
+    DoubleSort(sliceDouble, 7);
+    delete[] sliceInt;
+    delete[] sliceChar;
+    delete[] sliceDouble;
+
+    // 上面是所有类型都适合的排序算法
+    // 重载模版: 函数签名、函数特征必须不同
+    // 与重载函数类型
+    // 示例
+    int* al1  = new int [] {1, 2, 3, 4, 5, 6, 0};
+    int* bl1 = new int [] {7, 8, 9, 10, 11, 12, 13};
+    Swap(al1, bl1, 7);
+    PrintSlice(al1, 7);
+    PrintSlice(bl1, 7);
+
+    int n1 = 10;
+    int n2 = 20;
+    Swap(n1, n2);
+    Println(n1);
+    Println(n2);
+
+    delete [] al1;
+    delete [] bl1;
 }

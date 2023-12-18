@@ -33,3 +33,11 @@ unsigned int left(int a, int n);
 
 template <typename SxkType>
 void Swap(SxkType &a, SxkType &b);
+
+template <class T>
+void DoubleSort(T* slice, int length);
+
+// 模版重载
+// 重载Swap
+template <typename T>
+void Swap(T a[], T b[], int length);
