@@ -27,3 +27,6 @@ void add1(char* a, int a1, char* b, int a2);
 void sink(double& r1);
 void sank(const double& r2);
 void sunk(double&& r3);
+
+char* left(char *str, int n);
+unsigned int left(int a, int n);

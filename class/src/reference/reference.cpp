@@ -3,51 +3,47 @@
 //
 
 #include "reference.h"
+#include <cmath>
 
-inline void swap_pointer(int* a, int* b);
-inline void swap_pointer(int* a, int* b)
-{
+inline void swap_pointer(int *a, int *b);
+
+inline void swap_pointer(int *a, int *b) {
     int temp = *a;
     *a = *b;
     *b = temp;
 }
 
-inline void swap_reference(int& a, int& b);
-inline void swap_reference(int& a, int& b)
-{
+inline void swap_reference(int &a, int &b);
+
+inline void swap_reference(int &a, int &b) {
     int temp = a;
     a = b;
     b = temp;
 }
 
-double cube(const double& a)
-{
+double cube(const double &a) {
     return a * a * a;
 }
 
-struct FreeThrows
-{
+struct FreeThrows {
     std::string name;
     std::string brand;
     double price;
     int attempts;
 };
 
-void showFreeThrows(const FreeThrows& f)
-{
+void showFreeThrows(const FreeThrows &f) {
     // f.name = "sss"; // const 限定词修饰 不支持修改
     cout << "name: " << f.name << " brand: "
-        << f.brand << " price: " << f.price
-        << " attempts: " << f.attempts << endl;
+         << f.brand << " price: " << f.price
+         << " attempts: " << f.attempts << endl;
 }
 
-void updateFreeThrows(FreeThrows& f, double price)
-{
+void updateFreeThrows(FreeThrows &f, double price) {
     f.price = price;
 }
 
-struct FreeThrows& accumulate(FreeThrows& target, const FreeThrows& source)
-{
+struct FreeThrows &accumulate(FreeThrows &target, const FreeThrows &source) {
     cout << "in functions target address: " << &target << endl;
     target.price += source.price;
     target.attempts += target.attempts;
@@ -55,36 +51,45 @@ struct FreeThrows& accumulate(FreeThrows& target, const FreeThrows& source)
     return target;
 }
 
-struct FreeThrows& clone(FreeThrows& f)
-{
-    auto ptr = new FreeThrows {};
+struct FreeThrows &clone(FreeThrows &f) {
+    auto ptr = new FreeThrows{};
     *ptr = f;
     return *ptr;
 
 }
 
-const struct FreeThrows& clone2(FreeThrows& f)
-{
-    auto ptr = new FreeThrows {};
+const struct FreeThrows &clone2(FreeThrows &f) {
+    auto ptr = new FreeThrows{};
     *ptr = f;
     return *ptr;
 
 }
 
-void file_out(ostream& os, int count, const char*& s)
-{
-    for (int i = 0; i< count; i++)
-    {
+void file_out(ostream &os, int count, const char *&s) {
+    for (int i = 0; i < count; i++) {
         os << s << endl;
     }
 }
 
-char* left(char *str, int n) {
+char *left(char *str, int n) {
     int len = (int) strlen(str);
     n = n > len ? len : n;
     char *newStr = new char[n + 1];
     strncpy(newStr, str, n);
     return newStr;
+}
+
+unsigned int left(int a, int n) {
+    int raw = a;
+    unsigned int digits(1);
+    while (a /= 10) {
+        digits++;
+    }
+
+    cout << "数字: " << raw << " 总共有: " << digits << "位" << endl;
+
+    return n >= digits ? raw : (int) (raw / pow(10, (digits - n)));
+
 }
 
 void add1(int a, int b) {
@@ -96,7 +101,7 @@ void add1(double a, double b) {
 }
 
 void add1(char *a, int a1, char *b, int a2) {
-    char* result = (char*)std::malloc(sizeof(char) * (a1 + a2 + 1));
+    char *result = (char *) std::malloc(sizeof(char) * (a1 + a2 + 1));
     // char *result = new char[a1 + a2 + 1];
     strcpy(result, a);
     result = &result[a1];
@@ -107,31 +112,30 @@ void add1(char *a, int a1, char *b, int a2) {
     free(result);
 }
 
-void sink(double& r1)
-{
+void sink(double &r1) {
     cout << "double& result: " << r1 << endl;
 }
-void sank(const double& r2)
-{
+
+void sank(const double &r2) {
     cout << "const double& result: " << r2 << endl;
 }
-void sunk(double&& r3)
-{
+
+void sunk(double &&r3) {
     cout << "右值引用, double&& result: " << r3 << endl;
 }
 
-void testReference(void)
-{
+void testReference(void) {
     cout << "this capture is reference..." << endl;
     cout << "引用: 就是已定义变量的别名" << endl;
-    cout << "引用的用途: 用作函数的形参,使得函数在调用时不用进行大数据的拷贝操作，直接进行原始数据的访问与修改操作，特别方便函数处理大型结构" << endl;
+    cout << "引用的用途: 用作函数的形参,使得函数在调用时不用进行大数据的拷贝操作，直接进行原始数据的访问与修改操作，特别方便函数处理大型结构"
+         << endl;
 
     // 1. 引用变量的创建
     // 使用 [限定词const] 变量类型& 变量名 = 被引用变量;
     int ra(10);
-    const int& rra = ra;
+    const int &rra = ra;
     cout << "rra = " << rra << endl;
-    cout << "ra = "<< ra << endl;
+    cout << "ra = " << ra << endl;
     // rra = 100; // 不能通过引用修改数据
     ra = 100;
     cout << "rra = " << rra << endl;
@@ -144,7 +148,7 @@ void testReference(void)
     // int& r = b ==> int* const ptr = &b;
 
     int rc(101);
-    int& rrc = rc;
+    int &rrc = rc;
     int rb(999);
     rrc = rb;
     rb = 9;
@@ -187,10 +191,10 @@ void testReference(void)
     //      1. 实参的类型正确 但不是左值(左值: 可以被引用的数据对象，变量、数组、结构、指针等，除了字面量常量及多项表达式)
     //      2. 实参的类型不正确，但可以转换为正确的类型
     double side = {10};
-    double* sidep = &side;
-    double& sider = side;
+    double *sidep = &side;
+    double &sider = side;
     long size1 = {5L};
-    double* arr = new double [5] {1.0, 2.0, 3.0, 4.0, 5.0};
+    double *arr = new double[5]{1.0, 2.0, 3.0, 4.0, 5.0};
 
     double c1 = cube(side); // 引用a->side 不会创建临时空间
     double c2 = cube(*sidep); // 引用a->sidep的解引用 不会创建临时空间
@@ -212,11 +216,11 @@ void testReference(void)
     // 移动语义: 将一个对象移动到另外一个对象 而不是使用传统的复制
     // 完美转发: 允许在不转变类型的方式将参数传递给其他函数
 
-    double&& rref = std::sqrt(36.0); // double& 将报错
+    double &&rref = std::sqrt(36.0); // double& 将报错
     cout << "rref: " << rref << endl;
 
-    double j {101.1};
-    double&& rr2 = j * 3.14 + 2;
+    double j{101.1};
+    double &&rr2 = j * 3.14 + 2;
     cout << "rr2: " << rr2 << endl;
 
     // 5. 引用与结构
@@ -225,7 +229,7 @@ void testReference(void)
     updateFreeThrows(f, 1000);
     // 返回引用
     struct FreeThrows f2 = {"洗衣机", "美的", 1299.01, 2088};
-    struct FreeThrows& f3 = accumulate(f2, f);
+    struct FreeThrows &f3 = accumulate(f2, f);
     cout << "f2 address: " << &f2 << endl;
     cout << "f3 address: " << &f3 << endl;
     showFreeThrows(f3);
@@ -246,7 +250,7 @@ void testReference(void)
     //      解决方案: 1. 将返回的结果通过引用参数进行传递到函数内部
     //               2. 通过使用new 关键词声明结果对象 将数据分配在堆空间 这样函数调用内存释放不会产生非法内存地址访问
     struct FreeThrows ftr = {"sxk", "国产", 10e9, 100};
-    const FreeThrows& newFtr = clone(ftr);
+    const FreeThrows &newFtr = clone(ftr);
     cout << "ftr address: " << &ftr << endl;
     cout << "after clone address: " << &newFtr << endl;
     // clone 出来的对象记得释放
@@ -276,21 +280,18 @@ void testReference(void)
     // 继承: 能够将特性从一个类传递给另一个类的语言特性 叫继承
 
     // ofstream 创建文件与写入的标准库
-    const char* fileName = "./show.txt";
+    const char *fileName = "./show.txt";
     std::ofstream outputFile(fileName);
-    if (outputFile.is_open())
-    {
+    if (outputFile.is_open()) {
         outputFile << "Hello world" << endl;
         outputFile << "C++ is interesting" << endl;
         // outputFile.close();
-    }
-    else
-    {
-        cout << "File " << fileName  << " is not opened!" << endl;
+    } else {
+        cout << "File " << fileName << " is not opened!" << endl;
     }
 
     // use cout
-    const char* s = "sxk";
+    const char *s = "sxk";
     file_out(cout, 10, s);
     // use file
     file_out(outputFile, 10, s);
@@ -338,9 +339,14 @@ void testReference(void)
     sink(sd1);
     const double sd2 = {1.12};
     sank(sd2);
-    sunk(1.1+1.2);
+    sunk(1.1 + 1.2);
     // 上述三种类型的函数重载，调用将用最匹配的版本
     // 第一个: 正常的左值引用与可修改左值引用
     // 第二个: const左值引用与右值参数
     // 第三个: 右值参数
+
+    // 重载示例
+    cout << "字符串: " << left("sxk hello", 3) << endl;
+    cout << "数字: " << left(109191, 3) << endl;
+    cout << "数字: " << left(333, 5) << endl;
 }
