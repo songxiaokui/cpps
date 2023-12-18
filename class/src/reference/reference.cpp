@@ -120,6 +120,21 @@ void sank(const double &r2) {
     cout << "const double& result: " << r2 << endl;
 }
 
+// 泛型编程
+template <typename SxkType>
+void Swap(SxkType& a, SxkType& b)
+{
+    SxkType temp = a;
+    a = b;
+    b = temp;
+}
+
+template <class MyType>
+void Println(MyType a)
+{
+    cout << a << endl;
+}
+
 void sunk(double &&r3) {
     cout << "右值引用, double&& result: " << r3 << endl;
 }
@@ -349,4 +364,49 @@ void testReference(void) {
     cout << "字符串: " << left("sxk hello", 3) << endl;
     cout << "数字: " << left(109191, 3) << endl;
     cout << "数字: " << left(333, 5) << endl;
+
+    // 何时使用函数重载
+    //  仅当函数基本上执行相同的任务,使用不同形式的数据时,才应用采用函数重载
+
+    // 什么是名称修饰（名称矫正）
+    // 编译器根据函数原型中指定的形参类型对每个函数进行加密
+
+    // 函数模版
+    // 泛型编程
+    // 函数模版是通用的函数描述 泛型可用于具体类型 通过将类型作为参数传递给模版 可以使编译器
+    // 生成该类型的函数
+    // 定义方式
+    // 1. 声明类型 template <typename 自定义类型>
+    // 2. 在函数签名中使用 自定义类型
+    // 示例
+    // 交换两个整型
+    int sw1{10};
+    int sw2{99};
+    cout << "int swap before: " << "sw1: " << sw1 << " sw2: "<< sw2 << endl;
+    Swap(sw1, sw2);
+    cout << "int swap after: " << "sw1: " << sw1 << " sw2: "<< sw2 << endl;
+
+    // 交换两个double
+    double sdoub1{1.1};
+    double sdoub2{9.9};
+    cout << "double swap before: " << "sdoub1: " << sdoub1 << " sdoub2: "<< sdoub2 << endl;
+    Swap(sdoub1, sdoub2);
+    cout << "double swap after: " << "sdoub1: " << sdoub1 << " sdoub2: "<< sdoub2 << endl;
+
+    // 交换两个char类型
+    char ch1 = 'a';
+    char ch2 = 'f';
+    cout << "char swap before: " << "ch1: " << ch1 << " ch2: "<< ch2 << endl;
+    Swap(ch1, ch2);
+    cout << "char swap after: " << "ch1: " << ch1 << " ch2: "<< ch2 << endl;
+
+    // 总结:
+    // 1. 建立模版 并给类型命名(关键词 template和typename是必须的 可以使用class代替typename)
+    // 2. 必须使用尖括号，类型名称任意选择
+    // 3. C++98之前没有加typename  可以使用class替代
+    // 4. 使用场景: 需要多个但同种算法的不同类型的函数
+    // class 示例如下:
+    Println("hello world");
+    Println(9.88);
+    Println('a');
 }

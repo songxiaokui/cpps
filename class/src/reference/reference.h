@@ -30,3 +30,6 @@ void sunk(double&& r3);
 
 char* left(char *str, int n);
 unsigned int left(int a, int n);
+
+template <typename SxkType>
+void Swap(SxkType &a, SxkType &b);
