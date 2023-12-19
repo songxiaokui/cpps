@@ -11,4 +11,11 @@
 
 using namespace std;
 
+#ifndef sxk
+#define sxk 1
+#endif
+
+
+#define SXK "SXK"
+
 void Compiler(void);
