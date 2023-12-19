@@ -89,3 +89,13 @@ auto MyAdd(T1 a, T2 b)
     decltype(a+b) ab = a + b;
     return ab;
 }
+
+// 后置返回值类型 auto
+auto my_sub(int a, double b) ->double;
+
+// 在模版函数中使用 结合decltype
+template <class T1, class T2>
+auto MySub(T1 a, T2 b) -> decltype(a-b)
+{
+    return a-b;
+}

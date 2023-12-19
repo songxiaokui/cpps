@@ -5,6 +5,8 @@
 #include "reference.h"
 #include <cmath>
 
+typedef int myint;
+
 inline void swap_pointer(int *a, int *b);
 
 inline void swap_pointer(int *a, int *b) {
@@ -222,6 +224,10 @@ T my_add(T a, T b) {
 int my_add(int a, int b) {
     cout << "这是自定义的类型实现" << endl;
     return a + b;
+}
+
+auto my_sub(int a, double b) -> double {
+    return a - b;
 }
 
 void testReference(void) {
@@ -635,7 +641,7 @@ void testReference(void) {
     decltype(xx2) xxx2 = 1;
     cout << "xxx2 type is: " << typeid(xxx2).name() << endl; //  int
 
-    double& xx3 = xx1;
+    double &xx3 = xx1;
     decltype(xx3) xxx3 = xx1;
     cout << "xxx3 type is: " << typeid(xxx3).name() << endl; //  double&
 
@@ -668,5 +674,17 @@ void testReference(void) {
     //      如: x+5、10 、11+12
     // 总之: 左值是可以寻址的 可对其进行取址操作 右值是零时对象 不能进行寻址
 
+    // typedef 自定义类型
+    myint am1 = 1;
+    cout << "custom type: " << am1 << endl;
+
+    // C++11 新增自动推断返回值类型 auto
+    // 后置返回值信息
+    // 将返回值后置 使用auto进行占位
+    // auto func(paramsType params...) -> returnType;
+    cout << typeid(my_sub(1, 10)).name() << endl; // double
+
+    // 在模版中使用后置返回值类型
+    cout << typeid(MySub(1, 10.0)).name() << endl; // double
 
 }
