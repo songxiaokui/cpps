@@ -15,6 +15,7 @@
 #include <cmath>
 #include <fstream>
 #include <cstdlib>
+#include <typeinfo>
 
 using namespace std;
 
@@ -77,3 +78,14 @@ T my_add(T a, T b);
 
 // 自定义类型
 int my_add(int a, int b);
+
+// 多类型模版
+template <typename T1, typename T2>
+auto MyAdd(T1 a, T2 b)
+{
+    // C++11中出现的decltype 获取类型 可以根据表达式推测类型
+    // decltype 可以是表达式
+    // 编译器遇到decltype会遍历一个核对表
+    decltype(a+b) ab = a + b;
+    return ab;
+}

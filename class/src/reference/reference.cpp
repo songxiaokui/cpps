@@ -617,4 +617,56 @@ void testReference(void) {
     my_add<int>(l1, l2); // T
     my_add<int>(l3, l4);  // T
     my_add(l3, l4); // T
+
+    // 函数模版的发展
+    cout << "int add double: " << MyAdd(1, 3.1) << endl;
+    cout << "double add double: " << MyAdd(1.1, 3.2) << endl;
+    cout << "int  add char: " << MyAdd(1, 'a') << endl;
+    // decltype的声明格式:
+    // decltype (expression) var;
+    // decltype的核对表过程简化:
+
+    // 1. 第一步 如果expression是一个没有用括号括起的标识符, 那么var类型与该标识符号的类型相同 包括 const限定符号
+    double xx1 = 1.1;
+    decltype(xx1) xxx1;
+    cout << "xxx1 type is: " << typeid(xxx1).name() << endl; // double
+
+    const int xx2 = 1;
+    decltype(xx2) xxx2 = 1;
+    cout << "xxx2 type is: " << typeid(xxx2).name() << endl; //  int
+
+    double& xx3 = xx1;
+    decltype(xx3) xxx3 = xx1;
+    cout << "xxx3 type is: " << typeid(xxx3).name() << endl; //  double&
+
+    // 2. 第二步 如果expression是一个函数调用 则var的类型和函数返回类型相同。 注意 并不会真正的调用函数
+    // 而是编译器通过检查函数的原型获取返回值类型
+    decltype(my_add(1, 3)) xxx4;
+    cout << "xxx4 type is: " << typeid(xxx4).name() << endl; //  int
+
+    // 3. 第三步 如果expression是一个左值,则var为指向类型的引用(指向类型是啥 var就是啥类型)，这一部都是没有经过
+    // (expression)的过程，但是在第一步就处理了，所以走到这一步，必须给左值使用括号,如果expression使用了括号括起来标识符号 则变成该类型的引用
+    int xx5;
+    decltype((xx5)) xxx5 = xx5; // int &
+    decltype(xx5) xxx6; // int
+    // 注意：括号是不会改变表达式的值和左值性
+    int xx6 = 11;
+    (xx6) = 19;
+    // 不会影响 xx6
+
+    // 4. 最后一步 如果条件都不满足 则var类型与expression的类型相同
+    // 最后补充一下左值与右值概念
+    // 左值:
+    //      左值是可以标识位置的表达式，具有内存地址的表达式
+    //      通常是可以被引用 可寻址的表达式 可以进行赋值
+    //      包括变量 数组 指针 引用等表达式
+    //      如: int a; a就是左值  int& x; x就是左值
+    // 右值:
+    //      不具备内存地址的表达式 无法被寻址的临时变量
+    //      一般是临时生成 无法被寻址的变量或表达式
+    //      包括常量 字面量 临时对象 表达式的计算结果
+    //      如: x+5、10 、11+12
+    // 总之: 左值是可以寻址的 可对其进行取址操作 右值是零时对象 不能进行寻址
+
+
 }
