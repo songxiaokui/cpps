@@ -230,6 +230,8 @@ auto my_sub(int a, double b) -> double {
     return a - b;
 }
 
+void FunctionReviewProblem(void);
+
 void testReference(void) {
     cout << "this capture is reference..." << endl;
     cout << "引用: 就是已定义变量的别名" << endl;
@@ -687,4 +689,70 @@ void testReference(void) {
     // 在模版中使用后置返回值类型
     cout << typeid(MySub(1, 10.0)).name() << endl; // double
 
+    // 函数复习题
+    // C++ Primer plus 第六版 第8章
+    FunctionReviewProblem();
+}
+
+void song(const char *name, int times) {
+    cout << name << endl;
+    cout << times << endl;
+}
+
+void iquote(int a) {
+    cout << "\"" << a << "\"" << endl;
+}
+
+void iquote(double a) {
+    cout << "\"" << a << "\"" << endl;
+}
+
+void iquote(std::string c) {
+    cout << "\"" << c << "\"" << endl;
+}
+
+void showBox(const box &b) {
+    cout << "box.maker: " << b.maker
+         << " box.height: " << b.height
+         << " box.width: " << b.width
+         << " box.length: " << b.length
+         << " box.volume: " << b.volume
+         << endl;
+}
+
+void updateBoxVolume(box &b) {
+    b.volume = b.length * b.width * b.height;
+}
+
+double mass(double density, double volume) {
+    return density * volume;
+}
+
+void FunctionReviewProblem(void) {
+    // 1. C++哪些函数适合函数内联?
+    // 函数内联主要是为了提高函数的运行效率，通常情况有如下:
+    //      1. 小型函数
+    //      2. 频繁调用的函数
+    //      3. 在循环中使用的函数
+    //      4. 函数体内只有简单的语句 没有分支语句等
+    //      5. 访问器函数
+
+    // 2. 函数默认值
+    song("abc");
+    song("abc", 1);
+    song();
+
+    // 3. 函数重载
+    string iqs = "hello world";
+    iquote(1);
+    iquote(1.1);
+    iquote(iqs);
+
+    // 4. 结构体对象做引用形参
+    struct box b = {"sxk", 10, 20, 100, 200};
+    showBox(b);
+    updateBoxVolume(b);
+    showBox(b);
+
+    // 5. 参数引用化 给形参数增加& 如果是右值引用 增加&&
 }

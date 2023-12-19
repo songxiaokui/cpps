@@ -99,3 +99,25 @@ auto MySub(T1 a, T2 b) -> decltype(a-b)
 {
     return a-b;
 }
+
+void song(const char* name = "O. My Papa", int times=100);
+
+void iquote(int a);
+void iquote(double a);
+void iquote(std::string c);
+
+struct box
+{
+    char maker[40];
+    float height;
+    float width;
+    float length;
+    float volume;
+};
+
+void showBox(const box& b);
+
+void updateBoxVolume(box& b);
+
+double mass(double density, double volume);
+double mass(double density, double volume = 1);
