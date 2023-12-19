@@ -4,8 +4,11 @@
 
 #include "compiler.h"
 
-void Compiler(void)
-{
+const string MY_NAME = "sss";
+static string MY_NAME_2 = "aaa";
+string MY_NAME_3 = "sxk";
+
+void Compiler(void) {
     cout << "This is compile file ." << endl;
     // 程序拆分三部分
     // 头文件: 包含结构的声明和函数原型
@@ -33,5 +36,10 @@ void Compiler(void)
 
     // 翻译单元
     // 名称修饰: 在C++中，函数名和变量名在编译后会发生名称修饰，这是为了支持函数重载和命名空间的特性，用来区分编译后不同的函数或变量
-    
+
+    // C++存储模式
+    // 自动存储持续性: 在函数内部声明的变量、函数参数的存储位自动(随函数调用而分配内存 函数执行结束 内存释放)
+    // 静态存储持续性: 在函数外定义的全局变量 和使用关键词static定义的变量，或使用const定义的全局常量 在程序整个运行过程中都存在
+    // 线程存储持续性: 在多核处理器上，使用thread_local声明,其生命周期和所属线程一样长
+    // 动态存储持续性: 使用new运算符分配的内存一直存在，直到使用delete运算符将其释放或程序结束 （自由存储 堆存储）
 }
