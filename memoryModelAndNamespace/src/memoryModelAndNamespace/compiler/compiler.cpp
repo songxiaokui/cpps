@@ -8,6 +8,12 @@ const string MY_NAME = "sss";
 static string MY_NAME_2 = "aaa";
 string MY_NAME_3 = "sxk";
 
+// 静态存储持续性
+// 1. 外部链接性定义
+int out_link_var = 10;
+// 2. 内部链接性定义
+static int inner_link_var = 11;
+
 void Compiler(void) {
     cout << "This is compile file ." << endl;
     // 程序拆分三部分
@@ -84,4 +90,55 @@ void Compiler(void) {
     // 寄存器变量
     // 关键词register定义 它建议编译器使用CPU寄存器来存储自动变量
     // 目的是为了提高访问变量的速度
+
+    // 静态存储持续性
+    // 三种情况
+    //      1. 外部链接性(可以在其他文件中访问 全局变量)
+    //      2. 内部链接性(只能在当前文件内访问)
+    //      3. 无链接性(只能在当前函数或代码块内访问)
+    //      静态存储是分配的一块存储区 由程序运行时分配 声明周期直到程序运行结束
+
+    // 定义
+    // 1. 外部链接性 (在代码块外部定义)
+    // 2. 内部链接性 (使用static修饰变量 并定义在代码块外部)
+    // 3. 无链接性 (使用static修饰变量 并定义在代码块内部)
+    // 示例
+    {
+        // 无链接性
+        static int null_link_var = 10;
+        // 输出访问域及存储
+        cout << "静态外部链接性: " << out_link_var << " 其地址: " << &out_link_var << endl;
+        cout << "静态内部链接性: " << inner_link_var << " 其地址: " << &inner_link_var << endl;
+        cout << "静态无链接性: " << null_link_var << " 其地址: " << &null_link_var << endl;
+        /*
+         *
+         *  静态外部链接性: 10 其地址: 0x1007f0000
+            静态内部链接性: 11 其地址: 0x1007f0008
+            静态无链接性: 10 其地址: 0x1007f0004
+         */
+        // 由此可见: 静态存储变量 是划分在一个固定区域段的内存 与动态存储持续性不同
+    }
+
+    // 静态存储持续性的特征: 未被初始化的静态变量所有位都被设置位0，这也叫零初始化
+
+    // 静态变量的初始化
+    // 1. 零初始化
+    // 2. 常量表达式初始化
+    // 3. 动态初始化
+
+    // 静态变量的初始化流程
+    // 1. 先使用零初始化
+    // 2. 然后如果常量表达式初始化该变量 编译器将根据文件内容计算表达式 执行常量表达式初始化
+    // 3. 如果没有足够大信息 变量将动态初始化
+
+    // C++11 支持 constexpr初始化静态变量
+    {
+        static constexpr int my_int = 2 * 10;
+        cout << "this is constexpr initialized: " << my_int << endl;
+    }
+
+    // constexpr 创建常量表达式方式
+    constexpr double my_float = 11 * 3.1415;
+    cout << "my_float: " << my_float << endl;
+
 }
