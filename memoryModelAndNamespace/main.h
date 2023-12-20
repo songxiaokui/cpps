@@ -12,7 +12,9 @@
 #include <cstring>
 #include <array>
 
-using namespace std;
-
 #include "src/memoryModelAndNamespace/compiler/compiler.h"
 #include "src/memoryModelAndNamespace/namespace/namespace.h"
+
+using namespace std;
+
+extern int this_age;

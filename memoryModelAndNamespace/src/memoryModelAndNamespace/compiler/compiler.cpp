@@ -4,6 +4,9 @@
 
 #include "compiler.h"
 
+// 在源文件中定义
+int this_age = 100;
+
 const string MY_NAME = "sss";
 static string MY_NAME_2 = "aaa";
 string MY_NAME_3 = "sxk";
@@ -141,4 +144,38 @@ void Compiler(void) {
     constexpr double my_float = 11 * 3.1415;
     cout << "my_float: " << my_float << endl;
 
+    // 全局变量(静态外部链接性变量)
+    // 在外部使用文件中 都必须声明该变量
+    // 另外 根据单定义规则 变量只能定义一次
+    // C++变量声明方式有以下2种:
+    //      1. 定义声明: 会给变量分配存储空间 简称定义
+    //      2. 引用声明: 不会给变量分配存储空间 只是引用已有变量 使用关键词 extern 不进行初始化，否则成定义
+
+    // ⚠️注意:
+    //      尽量不要在头文件中定义外部链接性变量(全局变量)
+    //      因为如果在头文件中定义外部变量 当该头文件被预处理指令引用多次时 就会产生变量重复定义 从而违背变量的单定义规则
+    // 定义最佳实现:
+    //      在头文件中只做声明, 在源码文件中定义
+    //      例如: 现在有a.h、a.cpp, b.h, b.cpp
+    //          先在在b.cpp中需要使用a源码文件定义的全局变量
+    //          则在 a.h中声明: extern int a_f;
+    //          在 a.cpp中定义: int a_f = 100;
+    //          在 b.h中使用该源文件 需要使用#include "a.h"
+    //          在 b.h中声明使用的变量: extern int a_f;
+    //          在 b.cpp中使用全局变量: cout << a_f << endl;
+
+    // 总之: 遵循外部变量只有一个定义 其他全部声明
+
+    // 输出全局变量的值
+    cout << "-----------------------------------" << endl;
+    cout << "全局变量HIDE_NUMBER: " << HIDE_NUMBER << endl;
+    // 更新全局变量
+    my_update(HIDE_NUMBER);
+    // 输出全局变量
+    cout << "在代码卡内更新 全局变量HIDE_NUMBER: " << HIDE_NUMBER << endl;
+    // 输出局部变量
+    local();
+
+    // local中: 自动变量隐藏了同名全局变量 自动变量的链接性只在函数体内
+    // update中: 使用extern type name可以重新定义全局变量 修改后的值 全局可见 作用域为所有文件
 }
