@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include "hide.h"
+#include "inner_static.h"
 
 using namespace std;
 

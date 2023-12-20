@@ -17,6 +17,10 @@ int out_link_var = 10;
 // 2. 内部链接性定义
 static int inner_link_var = 11;
 
+// 内部变量
+// int INNER_STATIC = 1000;  // 会报错 重复定义
+static int INNER_STATIC = 9999;
+
 void Compiler(void) {
     cout << "This is compile file ." << endl;
     // 程序拆分三部分
@@ -178,4 +182,14 @@ void Compiler(void) {
 
     // local中: 自动变量隐藏了同名全局变量 自动变量的链接性只在函数体内
     // update中: 使用extern type name可以重新定义全局变量 修改后的值 全局可见 作用域为所有文件
+
+    // 静态持续性-内部链接性
+    // cout << INNER_STATIC << endl; // 会报错 重复定义
+    // static 限定了变量定义只在当前文件内可见 无法访问到其他文件的该同名变变量
+    cout << INNER_STATIC << endl;
+    cout << ::INNER_STATIC << endl;
+    showInnerStatic();
+
+    // 使用外部变量实现多个文件中的数据共享
+    // 使用内部变量可以实现同一个文件中多个函数之间数据共享
 }
