@@ -29,3 +29,8 @@ void show()
 {
     cout << "show函数: 简单查询全局变量HIDE_NUMBER： " << HIDE_NUMBER << endl;
 }
+
+void sayHello()
+{
+    cout << "hello world" << endl;
+}

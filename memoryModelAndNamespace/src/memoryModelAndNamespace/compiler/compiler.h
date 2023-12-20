@@ -13,6 +13,7 @@
 #include "mymutable.h"
 #include "myconst.h"
 #include "functionlink.h"
+#include "language_link.h"
 
 using namespace std;
 
@@ -45,3 +46,22 @@ extern const int NAME5;
 
 // 定义一个和function link相同内联函数
 void owner_func();
+
+
+//extern "C" {
+//    void language_call(int d);
+//}
+
+// C语言链接性 给每个函数都有一个符号名 编译器会进行名称矫正或名称修饰
+extern "C" {
+    void language_call(int d);
+    void my_add(double a, double b);
+};
+
+// C++语言链接性
+extern "C++" {
+    void sayHello();
+}
+
+// 如果不指定 默认是C++语言链接性
+// 如果语言链接性不一样 可能会导致链接时符号找不到 从而产生链接错误

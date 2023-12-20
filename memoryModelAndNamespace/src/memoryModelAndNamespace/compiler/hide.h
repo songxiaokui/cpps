@@ -14,3 +14,5 @@ void show();
 #endif //MEMORYMODELANDNAMESPACE_HIDE_H
 
 using namespace std;
+
+void sayHello();

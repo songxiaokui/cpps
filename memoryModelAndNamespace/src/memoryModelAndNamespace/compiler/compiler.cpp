@@ -258,4 +258,10 @@ void Compiler(void) {
     // owner_func();  // 此处报错 owner_func() 是内部函数 不可导出
     // 与内部函数同名
     owner_func();
+
+    // 语言链接性
+    language_call(10);
+    sayHello();
+    my_add(1.1, 2.3333);
+
 }
