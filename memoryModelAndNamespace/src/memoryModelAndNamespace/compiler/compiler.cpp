@@ -199,7 +199,7 @@ void Compiler(void) {
     // 作用域: 代码块或函数体内
 
     // 存储说明符号
-    //      auto : 后置类型推断说明 使用 auto f(...) -> decltype(x+y);
+    //      auto : 自动变量 或 后置类型推断说明 使用 auto f(...) -> decltype(x+y);
     //      register : 建议编译器将数据存储到寄存器中
     //      static : 根据上下文意义不一样, 在代码卡外部,表示静态持续性-内部链接性；在代码块内部定义, 表示静态持续性-无链接性变量
     //      extern : 通常用来声明一个全局变量或引用一个全局变量 通常告诉编译器 不用进行内存分配
@@ -213,5 +213,38 @@ void Compiler(void) {
     a1.update(a1, "张三");
 
     // c-v限定符号
+    //      const: 内存被初始化后,程序不能对它进行修改
+    //      volatile: 告诉编译器，不要对该变量进行优化。它的值会受到程序之外的控制而改变
+    //      volatile的使用场景: 1. 多线程或中断环境 确保每次取值都是从内存中取出最新
+    //                        2. IO操作 当变量表示设备寄存器与内存地址映射时,其值会受到程序外的控制而改变
 
+    // mutable 用来说明类或结构成员变量即使受const限定也可以修改
+    const struct data d1 = {"sxk", 18, 10};
+    // age不可被修改 d1时const限定不能修改
+    // d1.age++;  // 会报错
+    d1.access++; // 不会报错 因为mutable说明 所以可以修改
+
+    // 限定符号 const 深度剖析
+    // 默认情况下 全局变量是 静态持续性 外部链接性
+    // 但是 const定义的全局变量 是内部链接性
+    // 定义等价于: static xxxx;
+    // 通常: 将const定义的常量定义在头文件中
+    // 最后的实质是引用了该头文件的文件 都有一组常量 而不是共享一组常量
+
+    // compiler.h
+    cout << "compiler in NAM1 address: " << &NAME1 << endl;
+    // myconst.h
+    showAddress();
+    // 结果如下:
+    // compiler in NAM1 address: 0x100d6fe68
+    // File myconst.h NAME1 address: 0x100d6fe80
+    // 综上所述: const定义的变量为内部链接性 所以不会产生重复定义的问题
+
+    // 使用extern 可以将常量的链接性改成外部链接
+    cout << "extern const var address: " << &NAME5 << endl;
+    showInnerAddress();
+    // 结果输出:
+    //  extern const var address: 0x102453e80
+    //  Extern Inner link var address: 0x102453e80
+    // 在头文件中使用extern const type name;声明常量外链接常量 可以和全局变量类似
 }

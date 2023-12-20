@@ -11,6 +11,7 @@
 #include "hide.h"
 #include "inner_static.h"
 #include "mymutable.h"
+#include "myconst.h"
 
 using namespace std;
 
@@ -30,3 +31,13 @@ extern int this_age;
 extern double HIDE_NUMBER;
 
 void Compiler(void);
+
+struct data
+{
+    char name[20];
+    mutable int access;
+    int age;
+};
+
+// 引入外部链接性常量
+extern const int NAME5;
