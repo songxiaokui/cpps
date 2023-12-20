@@ -10,6 +10,7 @@
 #include <iostream>
 #include "hide.h"
 #include "inner_static.h"
+#include "mymutable.h"
 
 using namespace std;
 
