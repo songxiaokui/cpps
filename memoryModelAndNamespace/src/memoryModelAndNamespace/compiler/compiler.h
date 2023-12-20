@@ -12,6 +12,7 @@
 #include "inner_static.h"
 #include "mymutable.h"
 #include "myconst.h"
+#include "functionlink.h"
 
 using namespace std;
 
@@ -41,3 +42,6 @@ struct data
 
 // 引入外部链接性常量
 extern const int NAME5;
+
+// 定义一个和function link相同内联函数
+void owner_func();

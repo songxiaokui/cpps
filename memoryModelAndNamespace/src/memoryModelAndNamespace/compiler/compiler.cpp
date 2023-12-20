@@ -21,6 +21,11 @@ static int inner_link_var = 11;
 // int INNER_STATIC = 1000;  // 会报错 重复定义
 static int INNER_STATIC = 9999;
 
+void owner_func()
+{
+    cout << "这是全局函数" << endl;
+}
+
 void Compiler(void) {
     cout << "This is compile file ." << endl;
     // 程序拆分三部分
@@ -247,4 +252,10 @@ void Compiler(void) {
     //  extern const var address: 0x102453e80
     //  Extern Inner link var address: 0x102453e80
     // 在头文件中使用extern const type name;声明常量外链接常量 可以和全局变量类似
+
+    // 函数和链接性
+    functionLink();
+    // owner_func();  // 此处报错 owner_func() 是内部函数 不可导出
+    // 与内部函数同名
+    owner_func();
 }
