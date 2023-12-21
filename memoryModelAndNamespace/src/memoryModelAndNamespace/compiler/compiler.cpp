@@ -290,6 +290,9 @@ void Compiler(void) {
     // 构造函数与析构函数
     testMyFloat();
 
+    // 动态存储
+    testDynamicMemory();
+
 
 }
 

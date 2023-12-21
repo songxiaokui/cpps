@@ -8,3 +8,9 @@
 #endif //MEMORYMODELANDNAMESPACE_DYNAMIC_MEMORY_H
 
 extern double* free_ptr;
+
+void testDynamicMemory(void);
+
+#include <iostream>
+
+using namespace std;
