@@ -14,6 +14,7 @@
 #include "myconst.h"
 #include "functionlink.h"
 #include "language_link.h"
+#include "dynamic_memory.h"
 
 using namespace std;
 
@@ -34,8 +35,7 @@ extern double HIDE_NUMBER;
 
 void Compiler(void);
 
-struct data
-{
+struct data {
     char name[20];
     mutable int access;
     int age;
@@ -54,14 +54,55 @@ void owner_func();
 
 // C语言链接性 给每个函数都有一个符号名 编译器会进行名称矫正或名称修饰
 extern "C" {
-    void language_call(int d);
-    void my_add(double a, double b);
+void language_call(int d);
+void my_add(double a, double b);
 };
 
 // C++语言链接性
 extern "C++" {
-    void sayHello();
+void sayHello();
 }
 
 // 如果不指定 默认是C++语言链接性
 // 如果语言链接性不一样 可能会导致链接时符号找不到 从而产生链接错误
+extern double *free_ptr;
+
+class myfloat {
+public:
+    // 构造函数
+    // 无参数构造
+    myfloat()
+    {
+        this->fl = new double ;
+        *this->fl = 0;
+    }
+
+    // 有参数构造
+    myfloat(double &&f) {
+        this->fl = new double;
+        *this->fl = f;
+    }
+
+    // 拷贝构造
+    myfloat(const myfloat &f) {
+        this->fl = new double;
+        *this->fl = *f.fl;
+    }
+
+    // 析构函数
+    ~myfloat() {
+        delete this->fl;
+        cout << "数据释放成功" << endl;
+    }
+
+    // show
+    void showData() {
+        cout << "data is " << *this->fl << endl;
+    }
+
+
+private:
+    double *fl;
+};
+
+void testMyFloat();

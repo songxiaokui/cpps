@@ -21,8 +21,7 @@ static int inner_link_var = 11;
 // int INNER_STATIC = 1000;  // 会报错 重复定义
 static int INNER_STATIC = 9999;
 
-void owner_func()
-{
+void owner_func() {
     cout << "这是全局函数" << endl;
 }
 
@@ -199,7 +198,7 @@ void Compiler(void) {
     // 使用内部变量可以实现同一个文件中多个函数之间数据共享
 
     // 静态持续性-无链接性
-    // 使用static限定符号 在代码卡内部定义的变量
+    // 使用static限定符号 在代码块内部定义的变量
     // 生命周期: 程序运行期间
     // 作用域: 代码块或函数体内
 
@@ -209,7 +208,7 @@ void Compiler(void) {
     //      static : 根据上下文意义不一样, 在代码卡外部,表示静态持续性-内部链接性；在代码块内部定义, 表示静态持续性-无链接性变量
     //      extern : 通常用来声明一个全局变量或引用一个全局变量 通常告诉编译器 不用进行内存分配
     //      thread_local : 在多核CPU中 定义线程局部变量 生命周期随线程而生 线程死而亡
-    //      mutable : 用于类中声明成员变量 他允许变量在const成员函数中进行修改
+    //      mutable : 用于类中声明成员变量 它允许变量在const成员函数中进行修改
 
     // mutable 示例如下
     class MyMutable a1;
@@ -264,4 +263,41 @@ void Compiler(void) {
     sayHello();
     my_add(1.1, 2.3333);
 
+    // 动态分配
+    // C风格
+    int a = 10;
+    int *f = (int *) std::malloc(sizeof(int) * 1);
+    *f = a;
+    cout << "f address: " << f << " value is: " << *f << endl;
+    std::free(f);
+
+    // C++风格
+    int b = 1000;
+    int *f1 = new int;
+    *f1 = b;
+    cout << "f1 address: " << f1 << " value is: " << *f1 << endl;
+    delete f1;
+
+    for (int i = 0; i < 20; i++) {
+        *(free_ptr + i) = i;
+    }
+    for (int i = 0; i < 20; i++) {
+        cout << "free_ptr index[" << i << "] value is: " << free_ptr[i] << endl;
+    }
+    // 释放内存
+    delete[] free_ptr;
+
+    // 构造函数与析构函数
+    testMyFloat();
+
+
+}
+
+void testMyFloat() {
+    class myfloat p0; // 无参数构造
+    class myfloat p(1.11);  // 有参构造
+    class myfloat p2(p);  // 拷贝构造
+    p2.showData();
+    p.showData();
+    p0.showData();
 }
