@@ -26,6 +26,9 @@ int main() {
     // testFunc();
 
     // reference
-    testReference();
+    // testReference();
+
+    // 构造函数
+    buildFunction();
     return 0;
 }

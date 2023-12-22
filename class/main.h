@@ -18,3 +18,4 @@ using namespace std;
 #include "src/limits/limits.h"
 #include "src/functions/func.h"
 #include "src/reference/reference.h"
+#include "src/build/classbuildfuntion.h"
