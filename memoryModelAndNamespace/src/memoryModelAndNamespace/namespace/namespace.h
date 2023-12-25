@@ -8,6 +8,8 @@
 #endif //MEMORYMODELANDNAMESPACE_NAMESPACE_H
 
 #include <iostream>
+#include "define2.h"
+#include "../using/definition.h"
 
 using namespace std;
 
