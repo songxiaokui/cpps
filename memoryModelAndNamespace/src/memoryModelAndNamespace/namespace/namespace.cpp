@@ -67,4 +67,31 @@ void Namespace(void)
     // 正确使用: 增加作用域解析运算符 指定明确的命名空间
     cout << "Jill::pail: " << Jill::pail << endl;
     cout << "Global::pail: " << ::pail << endl;
+
+    // 注意: 如果一个名称已经在代码块中声明 则不能再使用using 声明进行该名称的声明
+    /*
+    int pail;
+    using Jill::pail;
+    using Jack::pail;
+
+     // 上述代码会报错
+    */
+
+    {
+        using namespace Jill;
+        // 局部变量会隐藏全局pail与Jill命名空间下的pail
+        double pail = 1.11;
+        cout << "pail: " << pail << endl;
+        // 使用作用域解析运算符 可以正常使用全局pail和指定名称空间下的pail
+        cout << "Global pail:" << ::pail << endl;
+        // Jill::pail
+        cout << "namespace variable use: " << Jill::pail << endl;
+    }
+
+    // 通常来说: 使用using声明比using 编译指令安全,using声明只导入了指定的名称
+
+    // using编译指令注意的问题:
+    // 1. using namespace 名称空间;放在代码卡内，名称空间的所有名称只在代码块生效
+    // 2. using namespace 名称空间; 放在全局名称名称空间,方便但是容易被局部变量隐藏
+    // 3. 尽量使用 作用域解析运算符方式使用或者使用using 声明只引入需要的名称
 }
