@@ -4,10 +4,18 @@
 
 #include "namespace.h"
 #include <string>
+
 namespace Student {
-    void Std::show()
-    {
+    void Std::show() {
         cout << "名字: " << name << " 学号: " << xh << endl;
+    }
+
+    Std::Std() {
+        cout << "学生构造完成" << endl;
+    }
+
+    Std::~Std() {
+        cout << "学生析构完成" << endl;
     }
 }
 
@@ -23,13 +31,13 @@ namespace MyPerson {
         name = "default";
         age = 0;
         count = 0;
-        Std* studentList = new Std [10];
+        studentList = new Std[MAX_LENGTH]; // 注意 这里不要再增加类型声明成局部变量
 
     };
 
     Person::Person(string name, int age) : name(name), age(age) {
         increment();
-        Std* studentList = new Std [10];
+        studentList = new Std[MAX_LENGTH];
         count = 0;
         cout << "Person 构造函数调用" << endl;
     };
@@ -39,15 +47,16 @@ namespace MyPerson {
         age = p.age;
         name = p.name;
         count = 0;
-        Std* studentList = new Std [10];
+        studentList = new Std[MAX_LENGTH];
     };
 
     Person::~Person() {
-        cout << "Person 析构完成" << endl;
-        if (studentList == nullptr)
-        {
-            delete [] studentList;
+        cout << "Person 准备析构" << endl;
+        if (studentList != nullptr) {
+            delete[] studentList;
+            studentList = nullptr;
         }
+        cout << "Person 析构完成" << endl;
     };
 
     void Person::show() {
@@ -62,22 +71,26 @@ namespace MyPerson {
         return total;
     }
 
-    void Person::addStudent(const Std &st)
-    {
-        // 在堆区开辟空间
-        Std* p1 = new Std;
+    void Person::addStudent(const Std &st) {
+        //在堆区开辟空间
+        Std *p1 = new Std;
         *p1 = st;
 
         // 然后赋值
-        studentList[count] = *p1;
+        if (count + 1 > MAX_LENGTH) {
+            cout << "当前学生数量太多" << endl;
+            return;
+        }
+        studentList[count] = st;
         count++;
+        cout << "学生: " << st.name << "增加成功" << endl;
     }
 
     void Person::showStudent() {
-        for (int n = 0; n < count; n++)
-        {
+        for (int n = 0; n < count; n++) {
             studentList[n].show();
         }
+        cout << "学生展示完成" << endl;
     }
 }
 
@@ -273,9 +286,13 @@ void Namespace(void) {
     Student::Std s2;
     s2.name = "小张";
     s2.xh = 10002;
+    cout << "创建学生完毕" << endl;
+
+
     p.addStudent(s1);
     p.addStudent(s2);
-    p1.showStudent();
+    cout << "展示p下的学生: " << endl;
+    p.showStudent();
 
 
 }

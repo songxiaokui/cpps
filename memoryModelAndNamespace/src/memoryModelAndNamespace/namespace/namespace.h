@@ -15,6 +15,7 @@ using namespace std;
 
 namespace Student
 {
+    static int MAX_LENGTH = 10;
     using namespace std;
     class Std
     {
@@ -22,6 +23,9 @@ namespace Student
         string name;
         int xh;
         void show();
+
+        Std();
+        ~Std();
     };
 }
 
