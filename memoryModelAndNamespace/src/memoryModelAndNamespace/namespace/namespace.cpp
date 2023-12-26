@@ -37,6 +37,35 @@ void localVariableSubstitution(void)
     cout << "local variable substitution: pail is: " << pail << endl;
 }
 
+// 名称空间嵌套与名称空间使用using编译指令和using声明
+namespace N1 {
+    namespace N2 {
+        string name = "sxk in N2";
+        using std::cout;
+        using std::endl;
+        using ::fetch;
+        using namespace Jack;
+    }
+    string name = "sxk in N1";
+}
+
+namespace T3
+{
+    string name = "sxk";
+}
+
+namespace T2
+{
+    using namespace T3;
+}
+
+namespace T1
+{
+    using namespace T2;
+}
+
+
+
 void Namespace(void)
 {
     cout << "This is namespace file ." << endl;
@@ -94,4 +123,38 @@ void Namespace(void)
     // 1. using namespace 名称空间;放在代码卡内，名称空间的所有名称只在代码块生效
     // 2. using namespace 名称空间; 放在全局名称名称空间,方便但是容易被局部变量隐藏
     // 3. 尽量使用 作用域解析运算符方式使用或者使用using 声明只引入需要的名称
+
+    // 名称空间的特性
+    // 1. 名称空间嵌套
+    // 2. 在名称空间中使用using编译指令与using声明
+    // 3. using 编译指令可传递
+    // 4. 名称空间可以创建别名
+
+    // 1. 名称空间嵌套
+    N1::N2::cout << "名称空间嵌套:" << N1::name << N1::N2::endl;
+
+    // 2. 在名称空间中使用using编译指令与using声明
+    using namespace N1::N2;
+    cout << "N2::fetch() calling: " << N1::N2::name << endl;
+    N1::N2::fetch();
+
+    // 3. using 编译指令可传递
+    // 若 N1 包括 N2、N2 包括 N3；则N1 包括 N3
+    {
+        using namespace T1;
+        // 等价与 using namespace T2 和 using namespace T3
+        cout << "T1 name is equal T2 name or T3 name: " << T1::name << endl;
+        using namespace T3;
+        cout << "T3 name is: " << T3::name << endl;
+    }
+
+    // 4. 名称空间可以创建别名
+    {
+        namespace my_name = N1::N2;
+        cout << "namespace alias:" << my_name::name << endl;
+        using my_name::name;
+        cout << "using declaration variable:" << name << endl;
+    }
+
+    cout << "name is : " << name << endl;
 }
