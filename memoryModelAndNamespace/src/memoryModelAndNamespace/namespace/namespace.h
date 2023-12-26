@@ -13,4 +13,54 @@
 
 using namespace std;
 
+namespace Student
+{
+    using namespace std;
+    class Std
+    {
+    public:
+        string name;
+        int xh;
+        void show();
+    };
+}
+
 void Namespace(void);
+
+namespace MyPerson {
+    using namespace Student;
+
+    class Person {
+    public:
+        std::string name;
+        int age;
+        Std* studentList;
+        int count;
+        // 静态成员属性
+        // 静态属性 类内定义 类外初始化
+        // 整个类共享数据
+        static int total;
+
+        Person(std::string name, int age);
+
+        Person();
+
+        ~Person();
+
+        Person(const Person &);
+
+        void show();
+
+        static int get_total();
+
+        void addStudent(const Std& st);
+
+        void showStudent();
+
+
+
+    private:
+        void increment();
+    };
+}
+

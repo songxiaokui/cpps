@@ -3,20 +3,98 @@
 //
 
 #include "namespace.h"
+#include <string>
+namespace Student {
+    void Std::show()
+    {
+        cout << "名字: " << name << " 学号: " << xh << endl;
+    }
+}
+
+namespace MyPerson {
+    using namespace std;
+
+    // 类内构造 内外初始化
+    int Person::total = 100;
+
+    // 构造
+    Person::Person() {
+        increment();
+        name = "default";
+        age = 0;
+        count = 0;
+        Std* studentList = new Std [10];
+
+    };
+
+    Person::Person(string name, int age) : name(name), age(age) {
+        increment();
+        Std* studentList = new Std [10];
+        count = 0;
+        cout << "Person 构造函数调用" << endl;
+    };
+
+    Person::Person(const Person &p) {
+        increment();
+        age = p.age;
+        name = p.name;
+        count = 0;
+        Std* studentList = new Std [10];
+    };
+
+    Person::~Person() {
+        cout << "Person 析构完成" << endl;
+        if (studentList == nullptr)
+        {
+            delete [] studentList;
+        }
+    };
+
+    void Person::show() {
+        cout << "我的名字叫: " << name << " 今年 " << age << "岁" << endl;
+    };
+
+    void Person::increment() {
+        total++;
+    }
+
+    int Person::get_total() {
+        return total;
+    }
+
+    void Person::addStudent(const Std &st)
+    {
+        // 在堆区开辟空间
+        Std* p1 = new Std;
+        *p1 = st;
+
+        // 然后赋值
+        studentList[count] = *p1;
+        count++;
+    }
+
+    void Person::showStudent() {
+        for (int n = 0; n < count; n++)
+        {
+            studentList[n].show();
+        }
+    }
+}
+
 
 namespace {
     float t1 = 1.111;
+
     void f1();
 
-    void f1()
-    {
+    void f1() {
         cout << "未命名命名空间函数调用 f1() " << endl;
     }
 }
 
 void fetch();
-void fetch()
-{
+
+void fetch() {
     cout << "this is global fetch() calling" << endl;
 }
 
@@ -24,10 +102,9 @@ void fetch()
 char pail[] = "global pail";
 
 
-
 void usingNameSpace();
-void usingNameSpace()
-{
+
+void usingNameSpace() {
     Jill::fetch();
     Jack::fetch();
     // 全局作用域函数调用
@@ -40,8 +117,8 @@ void usingNameSpace()
 }
 
 void localVariableSubstitution(void);
-void localVariableSubstitution(void)
-{
+
+void localVariableSubstitution(void) {
     cout << "global variable pail is: " << pail << endl;  // is equal ::pail
     using Jill::pail;
     cout << "local variable substitution: pail is: " << pail << endl;
@@ -59,25 +136,20 @@ namespace N1 {
     string name = "sxk in N1";
 }
 
-namespace T3
-{
+namespace T3 {
     string name = "sxk";
 }
 
-namespace T2
-{
+namespace T2 {
     using namespace T3;
 }
 
-namespace T1
-{
+namespace T1 {
     using namespace T2;
 }
 
 
-
-void Namespace(void)
-{
+void Namespace(void) {
     cout << "This is namespace file ." << endl;
     // 概念理解
     // 1. 声明区域（可以在其中声明的区域）（全局变量的声明区域为所有变量，自动变量的声明区域在当前所在代码块）
@@ -180,5 +252,30 @@ void Namespace(void)
         double t1 = 9.9999;
         cout << "t1 is: " << t1 << endl;
     }
+
+    // 在namespace中定义类并使用
+    using namespace MyPerson;
+    cout << "默认人数为: " << Person::get_total() << endl;
+    Person p("sxk", 18);
+    p.show();
+    cout << "增加p后总人数: " << p.get_total() << endl;
+    Person p1;
+    p1.show();
+    cout << "增加p1后总人数: " << p.get_total() << endl;
+    Person p2(p);
+    p2.show();
+    cout << "增加p2后总人数: " << p.get_total() << endl;
+
+    Student::Std s1;
+    s1.name = "小王";
+    s1.xh = 10001;
+
+    Student::Std s2;
+    s2.name = "小张";
+    s2.xh = 10002;
+    p.addStudent(s1);
+    p.addStudent(s2);
+    p1.showStudent();
+
 
 }
