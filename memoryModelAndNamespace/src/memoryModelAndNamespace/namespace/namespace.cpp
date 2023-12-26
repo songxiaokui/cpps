@@ -4,6 +4,16 @@
 
 #include "namespace.h"
 
+namespace {
+    float t1 = 1.111;
+    void f1();
+
+    void f1()
+    {
+        cout << "未命名命名空间函数调用 f1() " << endl;
+    }
+}
+
 void fetch();
 void fetch()
 {
@@ -157,4 +167,18 @@ void Namespace(void)
     }
 
     cout << "name is : " << name << endl;
+
+    // 未命名的命名空间
+    // 未命名的命名空间的名称-潜在作用域为从声明点到声明区域末尾
+    // 未命名的命名空间的名称 不能使用using声明或using编译指令显示声明使用
+    // 未命名的命名空间的名称 链接性为内部 和静态变量类似
+    {
+        // 只能在当前文件内部调用
+        f1();
+        cout << "未命名变量： " << t1 << endl;
+        // 局部变量覆盖
+        double t1 = 9.9999;
+        cout << "t1 is: " << t1 << endl;
+    }
+
 }
