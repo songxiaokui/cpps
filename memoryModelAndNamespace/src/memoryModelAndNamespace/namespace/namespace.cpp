@@ -31,7 +31,7 @@ namespace MyPerson {
         name = "default";
         age = 0;
         count = 0;
-        studentList = new Std[MAX_LENGTH]; // 注意 这里不要再增加类型声明成局部变量
+        studentList = new Std[MAX_LENGTH]; // 注意 这里不要再增加类型声明成局部变量 否则会产生内存泄漏
 
     };
 
@@ -294,5 +294,12 @@ void Namespace(void) {
     cout << "展示p下的学生: " << endl;
     p.showStudent();
 
+    // 名称空间的作用与用途
+    // 1. 使用名称空间内声明的变量而不是使用外部全局变量、静态全局变量
+    // 2. 开发函数库或类,将其放在一个名称空间
+    // 3. 不要在头文件中使用using编译指令
+    // 4. 导入名称时,首选作用域解析运算符(Jill::pail)或using声明方式(using Jill::pail)
+    // 5. 对于using声明，首选作用域设置位局部而不是全局
+    
 
 }
