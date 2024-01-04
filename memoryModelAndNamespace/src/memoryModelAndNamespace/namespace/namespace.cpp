@@ -300,6 +300,6 @@ void Namespace(void) {
     // 3. 不要在头文件中使用using编译指令
     // 4. 导入名称时,首选作用域解析运算符(Jill::pail)或using声明方式(using Jill::pail)
     // 5. 对于using声明，首选作用域设置位局部而不是全局
-    
+
 
 }
