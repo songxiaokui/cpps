@@ -25,6 +25,9 @@ IF(WIN32)
 ELSE(WIN32)
     IF(APPLE)
         EXEC_PROGRAM (sw_vers ARGS -productVersion OUTPUT_VARIABLE MACOSX_VERSION)
+        # STRING 字符串操作命令
+        # REGEX MATCH 正则匹配
+        # 将MACOSX_VERSION变量的值 进行正则匹配数字 存储在变量VERSION变量中
         STRING(REGEX MATCH "[0-9]+.[0-9]+" VERSION "${MACOSX_VERSION}")
         SET(MACOS_VERSION ${VERSION})
         SET(HOST_SYSTEM "macosx")
@@ -60,8 +63,13 @@ ELSE(WIN32)
 ENDIF(WIN32)
 
 # query number of logical cores
+# CMAKE_HOST_SYSTEM_INFORMATION 查询主机的信息并存放在变量CPU_CORES中
+# NUMBER_OF_LOGICAL_CORES 表示获取主机逻辑CPU数量
 CMAKE_HOST_SYSTEM_INFORMATION(RESULT CPU_CORES QUERY NUMBER_OF_LOGICAL_CORES)
 
+# 将变量HOST_SYSTEM CPU_CORES 标记为系统高级选项
+# 在Cmake GUI中不会默认显示 但是不会影响Cmake文件对该变量的访问
+# 只要被标记为高级选项 无论那个Cmake文件 都可以通过${变量名进行访问}
 MARK_AS_ADVANCED(HOST_SYSTEM CPU_CORES)
 
 # external dependencies log output

@@ -1,20 +1,34 @@
 cmake_minimum_required(VERSION 3.24)
+# cmake_minimum_required 设置cmake的版本 并且要放在cmake文件的顶部分 本质是给该变量：CMAKE_MINIMUM_REQUIRED_VERSION 赋值
 
+# 设置CMAKE_ROOT_PATH变量的路径在与CmakeLists.txt同级的cmake目录
 set(CMAKE_ROOT_PATH ${CMAKE_SOURCE_DIR}/cmake)
+# 设置CMAKE_MODULE_PATH变量 指定额外的Cmake模块查找路径 默认值为空
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_ROOT_PATH}/Modules/")
+# 设置CMAKE_EXTERNAL_PATH 项目外部依赖的路径
 set(CMAKE_EXTERNAL_PATH ${CMAKE_ROOT_PATH}/External)
 
 # Make sure that all _ROOT variables *are* used when they are set.
+# 设置策略 控制cmake行为
+cmake_policy(SET CMP0000 NEW) # 保留策略
+cmake_policy(SET CMP0022 OLD) # 控制链接器查找是否可以使用相对路径
+cmake_policy(SET CMP0048 NEW) # 使用project()
 if (POLICY CMP0074)
+    # 控制链接对象的方式
     cmake_policy(SET CMP0074 NEW)
 endif ()
 
 # 指定为C++17 版本
 set(CMAKE_CXX_STANDARD 17)
 
+# 引入Utils.cmake文件 提供工程版本号信息功能
 include(${CMAKE_ROOT_PATH}/Utils.cmake)
+# 引入System.cmake 提供系统信息输出
 include(${CMAKE_ROOT_PATH}/System.cmake)
+# 引入SearchIncludeDir.cmake 设置可以搜索二级目录下的路径列表
 include(${CMAKE_ROOT_PATH}/SearchIncludeDir.cmake)
+# 引入MyLearn.cmake 用来学习cmake的基本语法
+include(${CMAKE_ROOT_PATH}/MyLearn.cmake)
 
 #--------------------------------------------
 # Project setting
