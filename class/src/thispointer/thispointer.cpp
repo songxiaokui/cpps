@@ -46,6 +46,21 @@ void thispointer::say() const
     cout << "常函数调用" << endl;
 }
 
+void Friend::displayFriend(const P &p)
+{
+    cout << "共有属性name: " << p.name << endl;
+    cout << "私有属性password: " << p.password << endl;
+    cout << "保护属性age: " << p.age << endl;
+}
+
+Friend::P::P(){}
+
+Friend::P::~P() {}
+
+void Friend::D::disPlay2(const C &c) {
+    cout << "类成员函数实现友元函数访问C的私有变量: " << c.age << endl;
+}
+
 void testThisPointer(void) {
     cout << "class model and this pointer..." << endl;
 
@@ -67,5 +82,17 @@ void testThisPointer(void) {
     // 空对象调用类函数 this为空指针
     thispointer* p3 = nullptr;
     p3->say();
+
+    // 全局函数实现友元函数
+    Friend::P p4;
+    Friend::displayFriend(p4);
+    // 类成员实现友元函数
+    Friend::A a1;
+    Friend::B b1;
+    b1.display(a1);
+    // 在一个类中实现友元函数
+    Friend::C c1;
+    Friend::D d1;
+    d1.disPlay2(c1);
 
 }
