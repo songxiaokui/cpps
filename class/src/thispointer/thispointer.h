@@ -63,18 +63,23 @@ namespace Friend {
     // 使用类作为友元类
     class A {
         // 在A中定义友元类的引用
+        friend class B;
+
     private:
         string name = "友元";
-
-    public:
-        friend class B;
     };
 
     class B {
         // 在B中定义实现友元函数的定义
     public:
+        class A b;
+
         void display(const A &a) {
             cout << "类实现友元函数访问A的私有变量:" << a.name << endl;
+        }
+
+        void visit() {
+            cout << "类实现友元函数访问A的私有变量:" << b.name << endl;
         }
     };
 
@@ -83,14 +88,19 @@ namespace Friend {
 
     class D {
     public:
-        void disPlay2(const C &c);
+        // D有一个成员类为C 想访问C的私有属性
+        class C *c;
+        void disPlay2();
+        D();
 
     };
 
     class C {
+        friend void D::disPlay2();
+
     private:
         int age = 1;
     public:
-        friend void D::disPlay2(const C &c);
+        C();
     };
 }

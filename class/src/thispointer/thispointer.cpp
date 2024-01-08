@@ -33,10 +33,8 @@ thispointer::~thispointer() {
 
 }
 
-void thispointer::say() const
-{
-    if (this == nullptr)
-    {
+void thispointer::say() const {
+    if (this == nullptr) {
         cout << "this is null" << endl;
         return;
     }
@@ -46,19 +44,26 @@ void thispointer::say() const
     cout << "常函数调用" << endl;
 }
 
-void Friend::displayFriend(const P &p)
-{
+void Friend::displayFriend(const P &p) {
     cout << "共有属性name: " << p.name << endl;
     cout << "私有属性password: " << p.password << endl;
     cout << "保护属性age: " << p.age << endl;
 }
 
-Friend::P::P(){}
+Friend::P::P() {}
 
 Friend::P::~P() {}
 
-void Friend::D::disPlay2(const C &c) {
-    cout << "类成员函数实现友元函数访问C的私有变量: " << c.age << endl;
+Friend::D::D() {
+    this->c = new C;
+}
+
+Friend::C::C() {
+    this->age = 100;
+}
+
+void Friend::D::disPlay2() {
+    cout << "类成员函数实现友元函数访问C的私有变量: " << this->c->age << endl;
 }
 
 void testThisPointer(void) {
@@ -80,7 +85,7 @@ void testThisPointer(void) {
     // p.add(p1); // 会报错
 
     // 空对象调用类函数 this为空指针
-    thispointer* p3 = nullptr;
+    thispointer *p3 = nullptr;
     p3->say();
 
     // 全局函数实现友元函数
@@ -91,8 +96,7 @@ void testThisPointer(void) {
     Friend::B b1;
     b1.display(a1);
     // 在一个类中实现友元函数
-    Friend::C c1;
     Friend::D d1;
-    d1.disPlay2(c1);
+    d1.disPlay2();
 
 }
