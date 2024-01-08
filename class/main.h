@@ -19,3 +19,4 @@ using namespace std;
 #include "src/functions/func.h"
 #include "src/reference/reference.h"
 #include "src/build/classbuildfuntion.h"
+#include "src/thispointer/thispointer.h"

@@ -29,6 +29,9 @@ int main() {
     // testReference();
 
     // 构造函数
-    buildFunction();
+    // buildFunction();
+
+    // this指针
+    testThisPointer();
     return 0;
 }
