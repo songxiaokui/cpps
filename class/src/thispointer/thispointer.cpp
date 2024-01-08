@@ -33,6 +33,19 @@ thispointer::~thispointer() {
 
 }
 
+void thispointer::say() const
+{
+    if (this == nullptr)
+    {
+        cout << "this is null" << endl;
+        return;
+    }
+    // this->age = 100; // 会报错，不可修改
+    // mutable 修饰的成员变量可以被修改
+    this->t = 100;
+    cout << "常函数调用" << endl;
+}
+
 void testThisPointer(void) {
     cout << "class model and this pointer..." << endl;
 
@@ -43,4 +56,16 @@ void testThisPointer(void) {
     p2.add(p1).add(p1).add(p1);
     //如果不返回引用 在触发默认拷贝构造是 会开辟新的空间地址进行赋值 就不会在返回的对象上继续调用
     cout << "p2 age is: " << p2.age << endl;
+
+    // 常对象
+    const thispointer p(1, x);
+    // 只能调用常函数
+    p.say();
+    // 不能调用普通函数
+    // p.add(p1); // 会报错
+
+    // 空对象调用类函数 this为空指针
+    thispointer* p3 = nullptr;
+    p3->say();
+
 }

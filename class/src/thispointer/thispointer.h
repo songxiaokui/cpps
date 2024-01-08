@@ -14,6 +14,7 @@ public:
     string name;
     int age;
     float* fl;
+    mutable int t;
 
     thispointer();
     thispointer(int age, float* x);
@@ -23,6 +24,9 @@ public:
     void setAge(int age);
 
     thispointer& add(thispointer& tp);
+
+    // 定义常函数
+    void say() const;
 };
 
 
