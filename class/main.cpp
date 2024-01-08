@@ -32,6 +32,9 @@ int main() {
     // buildFunction();
 
     // this指针
-    testThisPointer();
+    // testThisPointer();
+
+    // 运算符重载
+    testReloadOperator();
     return 0;
 }

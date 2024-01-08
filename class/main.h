@@ -20,3 +20,4 @@ using namespace std;
 #include "src/reference/reference.h"
 #include "src/build/classbuildfuntion.h"
 #include "src/thispointer/thispointer.h"
+#include "src/reloadoperator/reloadoperator.h"
