@@ -46,4 +46,7 @@ void testReloadOperator(void) {
 
     // 使用全局函数方式重载<< 左移动运算符
     LeftMove::testLeftMove();
+
+    // 自增运算符重载
+    Increment::testIncrement();
 }

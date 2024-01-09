@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include "leftmove.h"
+#include "increment.h"
 
 using namespace std;
 
