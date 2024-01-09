@@ -11,6 +11,7 @@
 #include <iostream>
 #include "leftmove.h"
 #include "increment.h"
+#include "reloadassign.h"
 
 using namespace std;
 

@@ -49,4 +49,7 @@ void testReloadOperator(void) {
 
     // 自增运算符重载
     Increment::testIncrement();
+
+    // 重载赋值运算符
+    ReloadAssign::testReloadAssign();
 }
