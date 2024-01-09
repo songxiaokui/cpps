@@ -9,6 +9,7 @@
 
 #include <string>
 #include <iostream>
+#include "leftmove.h"
 
 using namespace std;
 
@@ -17,7 +18,10 @@ namespace ReloadOperator
     class Person
     {
     public:
+        // 重载+
         Person operator+(Person& a);
+        // 重载<<
+        ostream& operator<<(ostream& out); // p << cout;
         int m_num1;
     };
 

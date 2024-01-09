@@ -10,6 +10,12 @@ namespace ReloadOperator {
         temp.m_num1 = this->m_num1 + a.m_num1;
         return temp;
     }
+
+    ostream& Person::operator<<(ostream& out)
+    {
+        out << "在类内重载<<: " << this->m_num1;
+        return out;
+    }
 }
 
 ReloadOperator::Person operator+(ReloadOperator::Person& p,  int a)
@@ -33,4 +39,11 @@ void testReloadOperator(void) {
     int a = 1000;
     ReloadOperator::Person p5 = p1 + a;
     cout << "p5 is: " << p5.m_num1 << endl;
+
+    // cout << p1 << endl; // 如果不重载<<则报错 如果用类实现
+    p1.operator<<(cout); // 没办法丝滑私用 cout << p1;这种形式
+    cout << endl;
+
+    // 使用全局函数方式重载<< 左移动运算符
+    LeftMove::testLeftMove();
 }
