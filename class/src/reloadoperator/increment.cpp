@@ -61,3 +61,15 @@ const Increment::Person Increment::Person::operator--(int) {
     this->m_A--;
     return temp;
 }
+
+Increment::Person::Person() {
+    this->m_A = 0;
+}
+
+Increment::Person::Person(const Person &p) {
+    this->m_A = p.m_A;
+}
+
+Increment::Person::~Person() {
+
+}

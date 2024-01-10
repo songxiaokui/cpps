@@ -20,6 +20,9 @@ namespace Increment
         friend ostream& operator<<(ostream& out, const Person& p);
     public:
         Person(int a);
+        Person();
+        Person(const Person& p); // 默认拷贝构造函数
+        ~Person();
     private:
         int m_A;
     public:
@@ -31,6 +34,7 @@ namespace Increment
         Person& operator--();
         // 后置递减
         const Person operator--(int);
+        //
     };
 
     // 重载<<左移运算符
