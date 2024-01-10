@@ -52,4 +52,5 @@ namespace HashTable {
         // 打印hash表所有元素
         void print();
     };
+    void testHashTable(void);
 }
