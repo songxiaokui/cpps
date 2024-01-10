@@ -12,6 +12,7 @@
 #include "leftmove.h"
 #include "increment.h"
 #include "reloadassign.h"
+#include "reloadcompare.h"
 
 using namespace std;
 

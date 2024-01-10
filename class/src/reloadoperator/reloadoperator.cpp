@@ -52,4 +52,7 @@ void testReloadOperator(void) {
 
     // 重载赋值运算符
     ReloadAssign::testReloadAssign();
+
+    // 重载比较运算符
+    ReloadCompare::testReloadCompare();
 }
