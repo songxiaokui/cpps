@@ -21,3 +21,4 @@ using namespace std;
 #include "src/build/classbuildfuntion.h"
 #include "src/thispointer/thispointer.h"
 #include "src/reloadoperator/reloadoperator.h"
+#include "src/Inherit/inherit.h"

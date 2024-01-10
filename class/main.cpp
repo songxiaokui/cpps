@@ -35,6 +35,9 @@ int main() {
     // testThisPointer();
 
     // 运算符重载
-    testReloadOperator();
+    // testReloadOperator();
+
+    // 继承
+    Inherit::testInherit();
     return 0;
 }
