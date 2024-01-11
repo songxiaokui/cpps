@@ -48,6 +48,34 @@ namespace Tree {
         queue.clear();
     }
 
+    // DFS 深度优先遍历
+    void DFS(Tree *&root) {
+        if (!root) {
+            return;
+        }
+
+        stack<Tree *> stk;
+        stk.push(root);
+
+        while (!stk.empty()) {
+            // 获取栈顶元素并处理元素
+            Tree *p = stk.top();
+            // 删除第一个元素
+            stk.pop();
+            cout << p->val << "->";
+            // 处理右节点,先入栈,后处理
+            if (p->right) {
+                stk.push(p->right);
+            }
+
+            // 处理左节点,后入栈,先处理
+            if (p->left) {
+                stk.push(p->left);
+            }
+        }
+        cout << "NULL" << endl;
+    }
+
     void testTree(void) {
         // 节点初始化
         Tree *root = new Tree(0);
@@ -65,7 +93,11 @@ namespace Tree {
         p2->right = p6;
 
         // BFS遍历树
+        cout << "BFS层序遍历: " << endl;
         BFS(root);
+
+        cout << "DFS非递归 先序遍历: " << endl;
+        DFS(root);
         // 释放空间
         delete root;
     }

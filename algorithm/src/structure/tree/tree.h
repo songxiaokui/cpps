@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stack>
 
 using namespace std;
 
@@ -27,4 +28,7 @@ namespace Tree {
 
     // BFS 广度优先遍历
     void BFS(Tree* &root);
+
+    // DFS 深度优先遍历(先序遍历)
+    void DFS(Tree* &root);
 }
