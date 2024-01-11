@@ -28,7 +28,7 @@ namespace HashTable {
     class HashMap {
         // 存储桶数据
     private:
-        vector<Pair *> buckets;
+        vector<shared_ptr<Pair>> buckets;
 
     public:
         // 构造函数
@@ -42,7 +42,7 @@ namespace HashTable {
         // 查询元素
         string get(int key);
         // 获取所有的键值对
-        vector<Pair*> pair_sets();
+        vector<shared_ptr<Pair>> pair_sets();
         // 获取所有的键
         vector<int> all_keys();
         // 获取所有的值
