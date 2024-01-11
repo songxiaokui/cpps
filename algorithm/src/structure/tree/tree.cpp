@@ -76,6 +76,42 @@ namespace Tree {
         cout << "NULL" << endl;
     }
 
+    // 先序遍历
+    void preorder_traversal(Tree* &root)
+    {
+        if (!root)
+        {
+            return;
+        }
+        cout << root->val << "->";
+        preorder_traversal(root->left);
+        preorder_traversal(root->right);
+    }
+
+    // 中序遍历
+    void inorder_traversal(Tree* &root)
+    {
+        if (!root)
+        {
+            return;
+        }
+        inorder_traversal(root->left);
+        cout << root->val << "->";
+        inorder_traversal(root->right);
+    }
+
+    // 后序遍历
+    void postorder_traversal(Tree* &root)
+    {
+        if (!root)
+        {
+            return;
+        }
+        postorder_traversal(root->left);
+        postorder_traversal(root->right);
+        cout << root->val << "->";
+    }
+
     void testTree(void) {
         // 节点初始化
         Tree *root = new Tree(0);
@@ -98,6 +134,18 @@ namespace Tree {
 
         cout << "DFS非递归 先序遍历: " << endl;
         DFS(root);
+
+        cout << "先序遍历: " << endl;
+        preorder_traversal(root);
+        cout << "NULL" << endl;
+
+        cout << "中序遍历: " << endl;
+        inorder_traversal(root);
+        cout << "NULL" << endl;
+
+        cout << "后序遍历: " << endl;
+        postorder_traversal(root);
+        cout << "NULL" << endl;
         // 释放空间
         delete root;
     }

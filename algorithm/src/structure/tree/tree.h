@@ -31,4 +31,13 @@ namespace Tree {
 
     // DFS 深度优先遍历(先序遍历)
     void DFS(Tree* &root);
+
+    // 先序遍历
+    void preorder_traversal(Tree* &root);
+
+    // 中序遍历
+    void inorder_traversal(Tree* &root);
+
+    // 后序遍历
+    void postorder_traversal(Tree* &root);
 }
