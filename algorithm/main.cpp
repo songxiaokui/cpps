@@ -2,6 +2,7 @@
 #include "src/structure/hashtable/hashtable.h"
 #include "src/structure/hashtable/hashtableplus.h"
 #include "src/structure/tree/tree.h"
+#include "src/structure/listtree/listtree.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -15,7 +16,10 @@ int main() {
     // NewHashMap::testNewHashMap();
 
     // tree
-    Tree::testTree();
+    // Tree::testTree();
+
+    // list tree
+    ListTree::testListTree();
 
     return 0;
 }
