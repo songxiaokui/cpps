@@ -3,6 +3,7 @@
 #include "src/structure/hashtable/hashtableplus.h"
 #include "src/structure/tree/tree.h"
 #include "src/structure/listtree/listtree.h"
+#include "src/structure/binarySearchTree/binarySerachTree.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -19,7 +20,9 @@ int main() {
     // Tree::testTree();
 
     // list tree
-    ListTree::testListTree();
+    // ListTree::testListTree();
 
+    // binary search tree
+    BinarySearchTree::testBinarySearchTree();
     return 0;
 }
