@@ -24,11 +24,11 @@ namespace ReloadCompare
         ~Person();
         void disPlay();
         // 重载判断相等
-        bool operator==(const Person& p);
+        bool operator==(const Person& p) const;
         // 重载判断不相等
-        bool operator!=(const Person& p);
+        bool operator!=(const Person& p) const;
         // 重载调用 泛用性更高 可多样化函数签名与返回值类型
-        string operator()();
+        string operator()() const;
     };
 
     void testReloadCompare(void);

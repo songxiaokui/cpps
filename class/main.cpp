@@ -39,6 +39,9 @@ int main() {
 
     // 继承
     // Inherit::testInherit();
-    MultiInherit::testMultiInherit();
+    // MultiInherit::testMultiInherit();
+
+    // 多态
+    Polymorphic::testPolymorphic();
     return 0;
 }

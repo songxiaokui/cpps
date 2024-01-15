@@ -23,7 +23,7 @@ namespace ReloadCompare {
     }
 
     // 重载判断相等
-    bool Person::operator==(const Person &p) {
+    bool Person::operator==(const Person &p) const {
         if (this->name == p.name && this->age == p.age) {
             return true;
         }
@@ -31,14 +31,14 @@ namespace ReloadCompare {
     }
 
     // 重载判断不相等
-    bool Person::operator!=(const Person &p) {
+    bool Person::operator!=(const Person &p) const {
         if (this->name == p.name && this->age == p.age) {
             return false;
         }
         return true;
     }
 
-    string Person::operator()() {
+    string Person::operator()() const {
         string a = string("详细信息: ") + string("姓名: ") + string(this->name) + string("年龄: ") + (to_string)(this->age);
         return a;
     }

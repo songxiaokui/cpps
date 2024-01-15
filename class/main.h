@@ -23,3 +23,4 @@ using namespace std;
 #include "src/reloadoperator/reloadoperator.h"
 #include "src/Inherit/multiInherit.h"
 #include "src/Inherit/inherit.h"
+#include "src/polymorphic/polymorphic.h"
