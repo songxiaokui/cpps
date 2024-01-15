@@ -38,6 +38,7 @@ int main() {
     // testReloadOperator();
 
     // 继承
-    Inherit::testInherit();
+    // Inherit::testInherit();
+    MultiInherit::testMultiInherit();
     return 0;
 }
