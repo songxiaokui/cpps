@@ -24,3 +24,4 @@ using namespace std;
 #include "src/Inherit/multiInherit.h"
 #include "src/Inherit/inherit.h"
 #include "src/polymorphic/polymorphic.h"
+#include "src/polymorphic/rebuildcomputer.h"

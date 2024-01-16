@@ -5,9 +5,9 @@
 #include "main.h"
 
 void func(...);
-void func(int a, int b)
-{
-    cout << a+b << endl;
+
+void func(int a, int b) {
+    cout << a + b << endl;
 }
 
 int main() {
@@ -42,6 +42,7 @@ int main() {
     // MultiInherit::testMultiInherit();
 
     // 多态
-    Polymorphic::testPolymorphic();
+    // Polymorphic::testPolymorphic();
+    RebuildComputer::testRebuildComputer();
     return 0;
 }
