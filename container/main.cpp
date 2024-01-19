@@ -4,6 +4,7 @@
 #include "src/container/stack.h"
 #include "src/container/map.h"
 #include "src/container/priority_queue.h"
+#include "src/template/function.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -21,6 +22,9 @@ int main() {
     // testMap();
 
     // priority_queue
-    testPriorityQueue();
+    // testPriorityQueue();
+
+    // function template
+    testFunctionTemplate();
     return 0;
 }
