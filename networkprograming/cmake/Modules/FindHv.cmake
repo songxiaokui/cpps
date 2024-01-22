@@ -51,7 +51,8 @@ if (Hv_FOUND)
     # 注意: 由于此处没有对外暴露变量 我们直接使用安装路径下进行匹配库文件和头文件
     find_package(libhv NO_MODULE)
     # TODO 查找最后的路径
-    set(Hv_LIBRARIES ${Hv_INSTALL_DIR}/lib/libhv.dylib)  # TODO 如何不写死 需要解决
+    # 注意后缀 路径是拼接起来的
+    set(Hv_LIBRARIES ${Hv_INSTALL_DIR}/lib/${LIBRARY_PREFIX}hv${LIBRARY_SUFFIX})  # TODO 如何不写死 需要解决
     # TODO 查找最后的路径
     set(Hv_INCLUDE_DIRS ${Hv_INSTALL_DIR}/include/hv)
     # 将变量设置为全局可见

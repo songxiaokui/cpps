@@ -51,7 +51,7 @@ if(NOT __Hv_INCLUDE)
         # 获取安装的路径 设置为库的安装路径
         ExternalProject_Get_Property(${Hv_DirName} INSTALL_DIR)
 
-        set(Hv_INCLUDE_DIRS ${INSTALL_DIR}/include)
+        set(Hv_INCLUDE_DIRS ${INSTALL_DIR}/include/hv)
         # 更新为库名
         set(Hv_LIB_NAME "libhv")
         set(Hv_LIBRARIES ${INSTALL_DIR}/lib/${LIBRARY_PREFIX}${Hv_LIB_NAME}${LIBRARY_SUFFIX})
