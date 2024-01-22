@@ -1,6 +1,19 @@
 cmake_minimum_required(VERSION 3.19)
-project(container)
+project(container CXX C)
 
+# 设置标准
 set(CMAKE_CXX_STANDARD 17)
+set(SEARCH_FILE_PATH ${PROJECT_SOURCE_DIR}/src)
+# 查找源文件
+file(GLOB_RECURSE SOURCE_FILES ${SEARCH_FILE_PATH}/*.cpp)
 
-add_executable(file main.cpp src/container/mylist.cpp src/container/mylist.h src/container/queue.cpp src/container/queue.h src/container/stack.cpp src/container/stack.h src/container/map.cpp src/container/map.h src/container/priority_queue.cpp src/container/priority_queue.h src/template/function.cpp src/template/function.h)
+# 查找头文件(递归查询)
+file(GLOB_RECURSE HEADER_FILES ${SEARCH_FILE_PATH}/*.h)
+
+# 获取所有的头文件目录
+get_filename_component(HEADER_DIRS "${HEADER_FILES}" DIRECTORY)
+list(REMOVE_DUPLICATES HEADER_DIRS)
+
+add_executable(container main.cpp ${SOURCE_FILES} ${HEADER_FILES})
+
+target_include_directories(container PRIVATE ${HEADER_DIRS})
