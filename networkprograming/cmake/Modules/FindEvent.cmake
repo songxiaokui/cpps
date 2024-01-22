@@ -5,11 +5,17 @@
 # EVENT_LIBRARIES - List of libraries when using event.
 # Event_FOUND - True if event found.
 
+# find_path是用来查找某个文件的路径
+# 该处的意思是 在EVENT_ROOT_DIR event 的安装路径下的 include 目录下查找 event.h文件
+# 如果文件存在 就把路径存储在EVENT_INCLUDE_DIR变量中 并且变量不设置默认值
 find_path(EVENT_INCLUDE_DIR
         NAMES event.h
         HINTS ${EVENT_ROOT_DIR}/include
         NO_DEFAULT_PATH)
 
+# find_library 用来查找库文件 在指定的目录下去查找 库文件
+# linux: lib名称.so macos: lib名称.dylib
+# 如果查找到该库 就将路径赋值给 EVENT_LIBRARY
 find_library(EVENT_LIBRARY
         NAMES event
         HINTS ${EVENT_ROOT_DIR}/lib
