@@ -22,9 +22,9 @@ int main() {
     // testMap();
 
     // priority_queue
-    // testPriorityQueue();
+    testPriorityQueue();
 
     // function template
-    testFunctionTemplate();
+    // testFunctionTemplate();
     return 0;
 }

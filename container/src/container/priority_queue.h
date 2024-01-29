@@ -14,5 +14,18 @@
 
 using namespace std;
 
+struct Person {
+    string name;
+    int age;
+    Person(string name, int age): name(name),age(age){};
+};
+
+template<class T>
+struct MyCompare {
+    bool operator()(const T& a, const T& b) {
+        return a.age < b.age;
+    }
+};
+
 // 优先队列
 void testPriorityQueue();
