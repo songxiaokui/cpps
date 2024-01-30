@@ -56,6 +56,6 @@ file(GLOB_RECURSE HEADER_FILES ${SEARCH_FILE_PATH}/*.h)
 get_filename_component(HEADER_DIRS "${HEADER_FILES}" DIRECTORY)
 list(REMOVE_DUPLICATES HEADER_DIRS)
 
-add_executable(container main.cpp ${SOURCE_FILES} ${HEADER_FILES} src/template/listnode.cpp src/template/listnode.h)
+add_executable(container main.cpp ${SOURCE_FILES} ${HEADER_FILES} src/template/listnode.cpp src/template/listnode.h src/problem/leetcode_stack.cpp)
 
 target_include_directories(container PRIVATE ${HEADER_DIRS})
